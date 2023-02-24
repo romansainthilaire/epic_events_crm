@@ -26,6 +26,12 @@
     {# CSS #}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    {# Favicon #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
+
 </head>
 
 <body>
@@ -34,7 +40,7 @@
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand me-5" href={% url "about" %}>
-                    <img id="epic-events-logo" src="{% static 'img/epic-events-logo.png' %}" alt="logo">
+                    <img id="epic-events-logo" src="{% static 'img/logos/epic-events-logo.png' %}" alt="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +68,7 @@
         <p class="text-white text-center pt-4">&copy; <span>{% now "Y" %}</span> Epic Events</p>
         <p class="text-center">
             <a href="https://github.com/romansainthilaire" target="_blank">
-                <img id="github-logo" src="{% static 'img/github-logo.png' %}" alt="">
+                <img id="github-logo" src="{% static 'img/logos/github-logo.png' %}" alt="">
             </a>
         </p>
     </footer>
