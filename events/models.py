@@ -14,7 +14,7 @@ class Client(models.Model):
     company_name = models.CharField(max_length=100, unique=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.first_name.capitalize()} {self.last_name.upper()} - {self.company_name.upper()}"
@@ -23,7 +23,7 @@ class Client(models.Model):
 class Contract(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
     amount = models.DecimalField(max_digits=8, decimal_places=2)
