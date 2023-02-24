@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,12 @@ DATABASES = {
         "PORT": env("DATABASE_PORT"),
     }
 }
+
+
+# Authentication
+
+AUTH_USER_MODEL = "accounts.User"
+LOGIN_URL = "/login"
 
 
 # Password validation
