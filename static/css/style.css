@@ -1,5 +1,5 @@
 body {
-    color: black;
+    color: rgb(200, 200, 200);
     background-color: rgb(80, 80, 80);
 }
 
@@ -9,10 +9,6 @@ body {
 
 .fs-7 {
     font-size: 15px;
-}
-
-.text-light {
-    color: rgb(200, 200, 200) !important;
 }
 
 #main-container {
@@ -37,6 +33,23 @@ footer {
     max-height: 54px;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+#django-logo {
+    max-width: 120px;
+}
+
+#django-rest-logo {
+    max-width: 250px;
+}
+
+#postgresql-logo {
+    max-width: 80px;
+}
+
+#bootstrap-logo {
+    max-width: 80px;
+    margin-left: 30px;
 }
 
 .nav-link:hover {

@@ -1,9 +1,122 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Epic Events | À propos{% endblock title %}
 
 {% block content %}
 
-<h1>Epic Events</h1>
+<h1 class="text-center text-white mb-4">Epic Events CRM</h1>
+
+<div class="text-center d-none d-md-block mb-5">
+    <img id="django-logo" src="{% static 'img/logos/django-logo.png' %}" alt="">
+    <img id="django-rest-logo" src="{% static 'img/logos/django-rest-logo.png' %}" alt="">
+    <img id="postgresql-logo" src="{% static 'img/logos/postgresql-logo.png' %}" alt="">
+    <img id="bootstrap-logo" src="{% static 'img/logos/bootstrap-logo.png' %}" alt="">
+</div>
+
+<h2 class="h3 text-black mb-3">Présentation</h2>
+
+<p class="mb-1">
+    <em>Épic Events</em> est une société fictive qui organise des évènements de "team building"pour des entreprises.
+</p>
+
+<p>
+    Cette application est un <strong>CRM</strong> (Customer Relationship Management) qui permet d'effectuer le
+    suivi des clients et des évènements organisés.
+</p>
+
+<h2 class="h3 text-black mt-4 mb-3">Équipes et fonctionnement</h2>
+
+<p>
+    Les utilisateurs (salariés de Épic Events) sont rangés en trois équipes :
+</p>
+
+<ul>
+    <li class="mb-2">
+        Les membres de l'équipe de <span class="text-white fw-bold">gestion</span> sont les seuls à pouvoir ajouter
+        de nouveaux utilisateurs à travers le site d'administration. Ils ont également pour rôle de désigner les
+        responsables des évènements.
+    </li>
+    <li class="mb-2">
+        Les membres de l'équipe de <span class="text-white fw-bold">vente</span> ajoutent de nouveaux clients dans
+        le système. Ils rédigent ensuite un contrat avec le client. Une fois le contrat signé un évènement est créé.
+    </li>
+    <li class="mb-2">
+        Les membres de l'équipe de <span class="text-white fw-bold">support</span> sont les responsables des évènements.
+        Ils organisent l'évènement pour le client puis rédigent un compte rendu en reportant les points positifs/négatifs
+        et identifient les axes d'amélioration (retour d'expérience).
+    </li>
+</ul>
+
+<h2 class="h3 text-black mt-4 mb-3">Autorisations</h2>
+
+<p class="mb-1">
+    Les membres de l'équipe de gestion peuvent effectuer toutes les opérations CRUD sur toutes les entités, à l'exeption
+    de l'opération de suppression pour les utilisateurs.
+</p>
+
+<p>
+    Les membres des équipes de vente et de support ont des accès plus limités :
+</p>
+
+<div class="table-responsive mt-4">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Créer</th>
+                <th>Afficher</th>
+                <th>Mettre à jour</th>
+                <th>Suprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Un membre de l'équipe de <span class="text-white fw-bold">vente</span> peut :</td>
+                <td>
+                    <p class="mb-1">- des clients</p>
+                    <p class="mb-1">- des contrats pour les clients dont il est responsable</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les clients dont il est responsable</p>
+                    <p class="mb-1">- les contrats dont il est responsable</p>
+                    <p class="mb-1">- les évènements liés aux contrats dont il est responsable</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les clients dont il est responsable</p>
+                    <p class="mb-1">- les contrats dont il est responsable (avant signature)</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les contrats dont il est responsable (avant signature)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Un membre de l'équipe de <span class="text-white fw-bold">support</span> peut :</td>
+                <td></td>
+                <td>
+                    <p class="mb-1">- les évènements dont il est responsable</p>
+                    <p class="mb-1">- les contrats liés aux évènements dont il est responsable</p>
+                    <p class="mb-1">- les clients liés aux évènements dont il est responsable</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les évènements dont il est responsable</p>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 class="h3 text-black mt-4 mb-3">Utilisation</h2>
+
+<p>Le système CRM peut être utilisé directement via cette application web ou à travers l'API.</p>
+
+<p>Afin de tester l'application les utilisateurs suivants ont été créés :</p>
+
+<ul>
+    <li class="mb-1">Équipe de <span class="text-white fw-bold">gestion</span> : Paul Dubois · paul.dubois@gmail.com · paul123test</li>
+    <li class="mb-1">Équipe de <span class="text-white fw-bold">vente</span> : Marie Thomas · marie.thomas@gmail.com · marie123test</li>
+    <li class="mb-1">Équipe de <span class="text-white fw-bold">support</span> : Nicolas Moreau · nicolas.moreau@gmail.com · nicolas123test</li>
+</ul>
 
 {% endblock content %}
