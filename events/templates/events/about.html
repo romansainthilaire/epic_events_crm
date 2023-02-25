@@ -34,8 +34,8 @@
 <ul>
     <li class="mb-2">
         Les membres de l'équipe de <span class="text-white fw-bold">gestion</span> sont les seuls à pouvoir ajouter
-        de nouveaux utilisateurs à travers le site d'administration. Ils ont également pour rôle de désigner les
-        responsables des évènements.
+        de nouveaux utilisateurs à travers le <a href="{% url 'admin:index' %}">site d'administration</a>. Ils ont
+        également pour rôle de désigner les responsables des évènements.
     </li>
     <li class="mb-2">
         Les membres de l'équipe de <span class="text-white fw-bold">vente</span> ajoutent de nouveaux clients dans
@@ -109,14 +109,17 @@
 
 <h2 class="h3 text-black mt-4 mb-3">Utilisation</h2>
 
-<p>Le système CRM peut être utilisé directement via cette application web ou à travers l'API.</p>
+<p>Le système CRM peut être utilisé directement via cette application web ou à travers l'<a href="{% url 'api_doc' %}">API</a>.</p>
 
-<p>Afin de tester l'application les utilisateurs suivants ont été créés :</p>
+<p>L'application peut être testée en utilisant les utilisateurs suivants :</p>
 
 <ul>
-    <li class="mb-1">Équipe de <span class="text-white fw-bold">gestion</span> : Paul Dubois · paul.dubois@gmail.com · paul123test</li>
-    <li class="mb-1">Équipe de <span class="text-white fw-bold">vente</span> : Marie Thomas · marie.thomas@gmail.com · marie123test</li>
-    <li class="mb-1">Équipe de <span class="text-white fw-bold">support</span> : Nicolas Moreau · nicolas.moreau@gmail.com · nicolas123test</li>
+    <li class="mb-1">
+        Équipe de <span class="text-white fw-bold">gestion</span> : Paul Dubois · <i>paul.dubois@gmail.com</i> · paul123test</li>
+    <li class="mb-1">
+        Équipe de <span class="text-white fw-bold">vente</span> : Marie Thomas · <i>marie.thomas@gmail.com</i> · marie123test</li>
+    <li class="mb-1">
+        Équipe de <span class="text-white fw-bold">support</span> : Nicolas Moreau · <i>nicolas.moreau@gmail.com</i> · nicolas123test</li>
 </ul>
 
 {% endblock content %}
