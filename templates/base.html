@@ -48,13 +48,18 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href={% url "about" %}>À propos</a>
+                            <a class="nav-link" href="{% url 'about' %}">À propos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'api_doc' %}">API</a>
                         </li>
                     </ul>
-                    <a class="btn btn-secondary me-3 my-2" href="#">Connexion</a>
+                    {% if user.is_authenticated %}
+                    <p class="text-white mt-3 me-4">{{ user.first_name|title }} {{ user.last_name|upper }}</p>
+                    <a class="btn btn-secondary me-3 my-2" href="{% url 'logout' %}">Déconnexion</a>
+                    {% else %}
+                    <a class="btn btn-secondary me-3 my-2" href="{% url 'login' %}">Connexion</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
