@@ -3,8 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from accounts.forms import LoginForm
+from accounts.decorators import unauthenticated_user_required
 
 
+@unauthenticated_user_required
 def log_in(request):
     form = LoginForm()
     context = {"form": form, "error_message": None}

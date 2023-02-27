@@ -92,6 +92,7 @@ DATABASES = {
 # Authentication
 
 AUTH_USER_MODEL = "accounts.User"
+LOGIN_URL = "/connexion/"
 
 
 # Password validation
