@@ -1,23 +1,25 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from accounts.models import User
 from accounts.forms import CustomUserCreationForm, CustomUserChangeForm
 
+# BaseUserAdmin is used to hash passwords when creating users with the admin site
+# https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
 
-class CustomUserAdmin(UserAdmin):
 
-    # UserAdmin is used to hash passwords when creating users with the admin site
-    # https://stackoverflow.com/questions/32851901/django-admin-not-hashing-users-password
+class UserAdmin(BaseUserAdmin):
+
+    #  forms used to create and update users
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
 
     list_display = ["email", "first_name", "last_name", "is_active", "is_staff", "is_admin", "team"]
-    search_fields = ["email"]
-    ordering = []
     list_filter = ["groups__name", "is_active"]
-    form = CustomUserChangeForm
-    add_form = CustomUserCreationForm
+    search_fields = ["first_name", "last_name", "email"]
+    ordering = ["first_name", "last_name"]
 
-    # fields accessed when creating a user
+    # fields displayed when creating a user
     add_fieldsets = [
         (None, {
             "classes": ["wide"],
@@ -26,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
          )
     ]
 
-    # fields accessed when updating a user
+    # fields displayed when updating a user
     fieldsets = [
         (None, {"fields": ["first_name", "last_name", "email", "password"]}),
         ("Permissions", {"fields": ["is_active", "is_staff", "groups"]}),
@@ -47,4 +49,4 @@ class CustomUserAdmin(UserAdmin):
         return ", ".join([g.name for g in obj.groups.all()]) if obj.groups.count() else ""
 
 
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(User, UserAdmin)
