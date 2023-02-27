@@ -16,16 +16,13 @@ class UserAdmin(BaseUserAdmin):
 
     # fields displayed when creating a user
     add_fieldsets = [
-        (None, {
-            "classes": ["wide"],
-            "fields": ["first_name", "last_name", "email", "password1", "password2", "is_active", "is_staff", "groups"]
-            }
-         )
+        ("Identifiants", {"fields": ["first_name", "last_name", "email", "password1", "password2"]}),
+        ("Permissions", {"fields": ["is_active", "is_staff", "groups"]}),
     ]
 
     # fields displayed when updating a user
     fieldsets = [
-        (None, {"fields": ["first_name", "last_name", "email", "password"]}),
+        ("Identifiants", {"fields": ["first_name", "last_name", "email", "password"]}),
         ("Permissions", {"fields": ["is_active", "is_staff", "groups"]}),
     ]
 
