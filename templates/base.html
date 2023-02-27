@@ -40,7 +40,7 @@
     <div id="main-container">
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand me-5" href={% url "about" %}>
+                <a class="navbar-brand me-3 me-xl-5" href={% url "about" %}>
                     <img id="epic-events-logo" src="{% static 'img/logos/epic-events-logo.png' %}" alt="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -48,8 +48,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">À propos</a>
+                        <li class="nav-item mt-2 mt-lg-0">
+                            <a class="nav-link nobr" href="{% url 'about' %}">À propos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'api_doc' %}">API</a>
@@ -71,12 +71,13 @@
                         {% endif %}
                     </ul>
                     {% if user.is_authenticated %}
-                    <p class="text-white mt-3 me-4">
-                        {{ user.first_name|title }} {{ user.last_name|upper }} - {{ user.groups.all.0|title }}
+                    <p class="text-white mt-3 mx-0 mx-lg-4">
+                        <span class="nobr">{{ user.first_name|title }} {{ user.last_name|upper }}</span><br>
+                        <span class="text-info-emphasis">{{ user.groups.all.0|title }}</span>
                     </p>
-                    <a class="btn btn-secondary me-3 my-2" href="{% url 'logout' %}">Déconnexion</a>
+                    <a class="btn btn-secondary me-3 mt-1 mb-3 mb-lg-2" href="{% url 'logout' %}">Déconnexion</a>
                     {% else %}
-                    <a class="btn btn-secondary me-3 my-2" href="{% url 'login' %}">Connexion</a>
+                    <a class="btn btn-secondary me-3 mt-1 mb-3 mb-lg-2" href="{% url 'login' %}">Connexion</a>
                     {% endif %}
                 </div>
             </div>
