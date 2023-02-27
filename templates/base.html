@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load auth_extras %}
 <html lang="fr">
 
 <head>
@@ -53,6 +54,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'api_doc' %}">API</a>
                         </li>
+                        {% if user|has_group:"vente" or user|has_group:"support" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contrats</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Évènements</a>
+                        </li>
+                        {% elif user|has_group:"gestion" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Administration</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     {% if user.is_authenticated %}
                     <p class="text-white mt-3 me-4">
