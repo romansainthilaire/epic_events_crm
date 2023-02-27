@@ -22,7 +22,10 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):  # PermissionsMixin enables to add groups
+class User(AbstractBaseUser, PermissionsMixin):
+
+    # PermissionsMixin enables to add groups
+    # https://stackoverflow.com/questions/36961180/how-add-group-for-custom-user-in-django
 
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
