@@ -55,7 +55,9 @@
                         </li>
                     </ul>
                     {% if user.is_authenticated %}
-                    <p class="text-white mt-3 me-4">{{ user.first_name|title }} {{ user.last_name|upper }}</p>
+                    <p class="text-white mt-3 me-4">
+                        {{ user.first_name|title }} {{ user.last_name|upper }} - {{ user.groups.all.0|title }}
+                    </p>
                     <a class="btn btn-secondary me-3 my-2" href="{% url 'logout' %}">Déconnexion</a>
                     {% else %}
                     <a class="btn btn-secondary me-3 my-2" href="{% url 'login' %}">Connexion</a>

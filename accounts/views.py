@@ -16,7 +16,10 @@ def log_in(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect("about")
+                if user.groups.filter(name="gestion").exists():
+                    return redirect("admin:index")
+                else:
+                    return redirect("about")
             else:
                 error_message = "Identifiants invalides."
                 context["error_message"] = error_message
@@ -28,4 +31,4 @@ def log_in(request):
 @login_required
 def log_out(request):
     logout(request)
-    return redirect("about")
+    return redirect("login")
