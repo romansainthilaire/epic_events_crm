@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
+from events.models import Client, Contract, Event
 
 
 def about(request):
@@ -12,4 +15,13 @@ def api_doc(request):
 
 @login_required
 def client_list(request):
-    return render(request, "events/client/client_list.html")
+    if request.user.groups.filter(name="vente").exists():
+        clients = Client.objects.filter(sales_contact=request.user)
+    elif request.user.groups.filter(name="support").exists():
+        events = Event.objects.filter(support_contact=request.user)
+        contracts = Contract.objects.filter(event__in=events)
+        clients = Client.objects.filter(contracts__in=contracts)
+    else:
+        raise PermissionDenied()
+    context = {"clients": clients}
+    return render(request, "events/client/client_list.html", context)

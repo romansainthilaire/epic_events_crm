@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from accounts.models import User
+from events.models import Client, Contract, Event
 
 # BaseUserAdmin is used to hash passwords when creating users with the admin site
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
@@ -41,4 +42,22 @@ class UserAdmin(BaseUserAdmin):
         return ", ".join([g.name for g in obj.groups.all()]) if obj.groups.count() else ""
 
 
+class ClientAdmin(admin.ModelAdmin):
+
+    list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
+
+
+class ContractAdmin(admin.ModelAdmin):
+
+    list_display = ["title", "amount", "client", "sales_contact", "signed"]
+
+
+class EventAdmin(admin.ModelAdmin):
+
+    list_display = ["contract", "support_contact", "event_date", "attendees"]
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Client, ClientAdmin)
+admin.site.register(Contract, ContractAdmin)
+admin.site.register(Event, EventAdmin)

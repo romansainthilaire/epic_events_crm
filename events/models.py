@@ -22,7 +22,7 @@ class Client(models.Model):
 
 class Contract(models.Model):
 
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="contracts")
     sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -40,12 +40,12 @@ class Event(models.Model):
 
     CUSTOMER_SATISFACTION_CHOICES = ((1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5"))
 
-    contract = models.OneToOneField(Contract, on_delete=models.CASCADE)
+    contract = models.OneToOneField(Contract, on_delete=models.CASCADE, related_name="event")
     support_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    event_date = models.DateTimeField(null=True)
-    attendees = models.SmallIntegerField(null=True)
-    event_retrospective = models.TextField()
-    customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True)
+    event_date = models.DateTimeField(null=True, blank=True)
+    attendees = models.SmallIntegerField(null=True, blank=True)
+    event_retrospective = models.TextField(blank=True)
+    customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     closed = models.BooleanField(default=False)

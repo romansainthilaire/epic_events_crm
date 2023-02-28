@@ -6,6 +6,10 @@
 
 <h1 class="text-white mb-4">Clients</h1>
 
-
+<ul>
+    {% for client in clients %}
+    <li>{{ client }}</li>
+    {% endfor %}
+</ul>
 
 {% endblock content %}
