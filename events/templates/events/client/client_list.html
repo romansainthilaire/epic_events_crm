@@ -5,7 +5,12 @@
 
 {% block content %}
 
-<h1 class="text-white mb-4">Clients<a class="btn btn-sm btn-secondary ms-4 mb-1" href="">Nouveau</a></h1>
+<h1 class="text-white mb-4">
+    Clients
+    {% if user|has_group:"vente" %}
+    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="">Nouveau</a>
+    {% endif %}
+</h1>
 
 {% if clients %}
 <div class="table-responsive mt-4">
@@ -18,8 +23,8 @@
                 <th>Historique</th>
                 {% if user|has_group:"vente" %}
                 <th></th>
-                <th></th>
                 {% endif %}
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +43,8 @@
                 </td>
                 {% if user|has_group:"vente" %}
                 <td><a class="btn btn-sm btn-outline-light" href="#">Modifier</a></td>
-                <td><a class="btn btn-sm btn-outline-light" href="#">Supprimer</a></td>
                 {% endif %}
+                <td><a class="btn btn-sm btn-outline-light" href="#">Contrats</a></td>
             </tr>
             {% endfor %}
         </tbody>
