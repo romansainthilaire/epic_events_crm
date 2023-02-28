@@ -6,12 +6,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Client(models.Model):
 
+    company_name = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     email = models.EmailField(max_length=100, unique=True)
     phone = PhoneNumberField(unique=True, region="FR")
     mobile = PhoneNumberField(unique=True, region="FR")
-    company_name = models.CharField(max_length=100, unique=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

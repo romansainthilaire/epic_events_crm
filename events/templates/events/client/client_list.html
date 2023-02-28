@@ -8,7 +8,7 @@
 <h1 class="text-white mb-4">
     Clients
     {% if user|has_group:"vente" %}
-    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="">Nouveau</a>
+    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="{% url 'client_create' %}">Nouveau</a>
     {% endif %}
 </h1>
 
@@ -42,7 +42,7 @@
                     <div class="nobr"><span class="text-secondary">Mis à jour :</span> {{ client.date_updated|date:"d/m/Y H:i" }}</div>
                 </td>
                 {% if user|has_group:"vente" %}
-                <td><a class="btn btn-sm btn-outline-light" href="#">Modifier</a></td>
+                <td><a class="btn btn-sm btn-outline-light" href="{% url 'client_update' client.pk %}">Modifier</a></td>
                 {% endif %}
                 <td><a class="btn btn-sm btn-outline-light" href="#">Contrats</a></td>
             </tr>
