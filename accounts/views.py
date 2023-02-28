@@ -18,7 +18,7 @@ def log_in(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                if user.groups.filter(name="gestion").exists():
+                if user.is_staff:
                     return redirect("admin:accounts_user_changelist")
                 else:
                     return redirect("about")
