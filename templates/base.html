@@ -60,7 +60,7 @@
                         </li>
                         {% elif user|has_group:"vente" or user|has_group:"support" %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Clients</a>
+                            <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contrats</a>
