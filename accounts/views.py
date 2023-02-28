@@ -19,7 +19,7 @@ def log_in(request):
             if user:
                 login(request, user)
                 if user.groups.filter(name="gestion").exists():
-                    return redirect("admin:index")
+                    return redirect("admin:accounts_user_changelist")
                 else:
                     return redirect("about")
             else:
