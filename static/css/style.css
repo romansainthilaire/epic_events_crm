@@ -87,11 +87,3 @@ label {
 .invalid-feedback {
     color: rgb(255, 150, 150)
 }
-
-@media (max-width: 1200px) {
-
-    #epic-events-logo {
-        max-height: 70px;
-    }
-
-}

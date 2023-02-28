@@ -40,7 +40,7 @@
     <div id="main-container">
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand me-3 me-xl-5" href={% url "about" %}>
+                <a class="navbar-brand me-5" href={% url "about" %}>
                     <img id="epic-events-logo" src="{% static 'img/logos/epic-events-logo.png' %}" alt="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -61,9 +61,6 @@
                         {% elif user|has_group:"vente" or user|has_group:"support" %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contrats</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Évènements</a>

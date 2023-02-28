@@ -14,9 +14,12 @@ class ClientAdmin(admin.ModelAdmin):
 class ContractAdmin(admin.ModelAdmin):
 
     form = ContractAdminForm
-    list_display = ["title", "amount", "client", "sales_contact", "signed"]
+    list_display = ["reference", "title", "amount", "client", "signed"]
     list_filter = ["signed"]
     search_fields = ["title", "client"]
+
+    def reference(self, obj):
+        return str(obj)
 
 
 class EventAdmin(admin.ModelAdmin):

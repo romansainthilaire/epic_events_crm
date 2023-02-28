@@ -24,10 +24,6 @@ class ClientForm(forms.ModelForm):
 
 class ContractAdminForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(ContractAdminForm, self).__init__(*args, **kwargs)
-        self.fields["sales_contact"].queryset = User.objects.filter(groups__name="vente")
-
     class Meta:
         model = Contract
         exclude = ["signed"]
@@ -37,7 +33,7 @@ class ContractForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        exclude = ["sales_contact"]
+        fields = "__all__"
 
 
 class EventAdminForm(forms.ModelForm):
