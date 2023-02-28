@@ -19,7 +19,7 @@ def log_in(request):
             if user:
                 login(request, user)
                 if user.is_staff:
-                    return redirect("admin:accounts_user_changelist")
+                    return redirect("admin:index")
                 else:
                     return redirect("about")
             else:

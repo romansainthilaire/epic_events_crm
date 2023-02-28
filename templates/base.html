@@ -56,7 +56,7 @@
                         </li>
                         {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'admin:accounts_user_changelist' %}">Administration</a>
+                            <a class="nav-link" href="{% url 'admin:index' %}">Administration</a>
                         </li>
                         {% elif user|has_group:"vente" or user|has_group:"support" %}
                         <li class="nav-item">
