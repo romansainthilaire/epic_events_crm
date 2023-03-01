@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <div class="modal fade" id="{{ contract }}">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -9,12 +11,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p class="text-secondary">
-                    Client : {{ contract.client }}
-                </p>
+                <h4 class="h5 text-secondary">Éléments principaux</h4>
+                <ul>
+                    <li class="text-secondary">Client : {{ contract.client }}</li>
+                    <li class="text-secondary nobr">Montant : {{ contract.amount|intcomma }} €</li>
+                    <li class="text-secondary nobr">Date limite de paiement : {{ contract.payment_due_date|date:"d/m/Y" }}</li>
+                </ul>
                 <h4 class="h5 text-secondary">Termes et conditions du contrat</h4>
                 <div class="text-dark fs-7">{{ contract.content|linebreaks }}</div>
-                <div class="text-end text-secondary">
+                <div class="text-end text-secondary fs-7">
                     {% if contract.signed %}
                     Signé par {{ contract.client.sales_contact.first_name|title }} {{ contract.client.sales_contact.last_name|upper }}
                     le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}
