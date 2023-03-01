@@ -14,8 +14,7 @@ class ClientAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
 
     form = EventAdminForm
-    list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction", "closed"]
-    list_filter = ["closed"]
+    list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
 
 

@@ -43,13 +43,12 @@ class Event(models.Model):
 
     contract = models.OneToOneField(Contract, on_delete=models.CASCADE, related_name="event")
     support_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    event_date = models.DateTimeField(null=True, blank=True)
-    attendees = models.SmallIntegerField(null=True, blank=True)
-    event_retrospective = models.TextField(blank=True)
-    customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True, blank=True)
+    event_date = models.DateTimeField(null=True)
+    attendees = models.SmallIntegerField(null=True)
+    event_retrospective = models.TextField()
+    customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    closed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.contract.title} - {self.event_date}"

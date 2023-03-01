@@ -15,10 +15,8 @@
                 <th>Cient</th>
                 <th>Contrat</th>
                 <th>Titre</th>
-                <th>Retour d'expérience</th>
-                {% if user|has_group:"support" %}
-                <th></th>
-                {% elif user|has_group:"vente" %}
+                <th>Compte rendu</th>
+                {% if user|has_group:"vente" %}
                 <th>Responsable</th>
                 {% endif %}
             </tr>
@@ -29,10 +27,22 @@
                 <td>{{ event.contract.client }}</td>
                 <td><a href="#" data-bs-toggle="modal" data-bs-target="#{{ event.contract }}">{{ event.contract }}</a></td>
                 <td>{{ event.contract.title }}</td>
-                <td><a href="#">Compte rendu</a></td>
-                {% if user|has_group:"support" %}
-                <td><a class="btn btn-sm btn-outline-light" href="#">Clôturer</a></td>
-                {% elif user|has_group:"vente" %}
+                <td>
+                    {% if user|has_group:"support" %}
+                    {% if event.event_retrospective %}
+                    <a class="btn btn-sm btn-outline-light" href="#">Modifier</a>
+                    {% else %}
+                    <a class="btn btn-sm btn-outline-light" href="#">Rédiger</a>
+                    {% endif %}
+                    {% elif user|has_group:"vente" %}
+                    {% if event.event_retrospective %}
+                    <a href="#">Afficher</a>
+                    {% else %}
+                    <i>Non rédigé</i>
+                    {% endif %}
+                    {% endif %}
+                </td>
+                {% if user|has_group:"vente" %}
                 {% if event.support_contact %}
                 <td>{{ event.support_contact.first_name|title }} {{ event.support_contact.last_name|upper }}</td>
                 {% else %}
