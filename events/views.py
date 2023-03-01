@@ -106,3 +106,13 @@ def contract_update(request, contract_id):
             return redirect("contract_list", contract.client.pk)
     context = {"client": contract.client, "contract_form": contract_form, "contract": contract}
     return render(request, "events/contract/contract_form.html", context)
+
+
+@login_required
+@allowed_groups(["vente"])
+def contract_delete(request, contract_id):
+    contract = get_object_or_404(Contract, pk=contract_id)
+    if request.user != contract.client.sales_contact or contract.signed:
+        raise PermissionDenied()
+    contract.delete()
+    return redirect("contract_list", contract.client.pk)

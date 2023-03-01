@@ -1,0 +1,16 @@
+<div class="modal fade" id="deleting-{{ contract }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h3 class="h4">Suppression du contrat - {{ contract }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-1">Êtes vous certain de vouloir supprimer ce contrat ?</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-outline-dark" href="{% url 'contract_delete' contract.pk %}">Supprimer</a>
+            </div>
+        </div>
+    </div>
+</div>

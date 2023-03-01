@@ -44,7 +44,11 @@
                 <td></td>
                 {% else %}
                 <td><a class="btn btn-sm btn-outline-light" href="{% url 'contract_update' contract.pk %}">Modifier</a></td>
-                <td><a class="btn btn-sm btn-outline-light" href="#">Supprimer</a></td>
+                <td>
+                    <a class="btn btn-sm btn-outline-light" href="#" data-bs-toggle="modal" data-bs-target="#deleting-{{ contract }}">
+                        Supprimer
+                    </a>
+                </td>
                 {% endif %}
                 {% endif %}
             </tr>
@@ -61,6 +65,7 @@
 {% for contract in contracts %}
 {% include "events/fragments/contract_content_modal.html" with contract=contract %}
 {% include "events/fragments/contract_signing_modal.html" with contract=contract %}
+{% include "events/fragments/contract_deleting_modal.html" with contract=contract %}
 {% endfor %}
 
 {% endblock content %}
