@@ -29,11 +29,9 @@
                 <td>{{ event.contract.title }}</td>
                 <td>
                     {% if user|has_group:"support" %}
-                    {% if event.event_retrospective %}
-                    <a class="btn btn-sm btn-outline-light" href="#">Modifier</a>
-                    {% else %}
-                    <a class="btn btn-sm btn-outline-light" href="#">Rédiger</a>
-                    {% endif %}
+                    <a class="btn btn-sm btn-outline-light" href="{% url 'event_update' event.pk %}">
+                        {% if event.event_retrospective %}Modifier{% else %}Rédiger{% endif %}
+                    </a>
                     {% elif user|has_group:"vente" %}
                     {% if event.event_retrospective %}
                     <a href="#">Afficher</a>

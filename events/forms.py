@@ -1,4 +1,7 @@
+import datetime
+
 from django import forms
+from django.core.exceptions import ValidationError
 
 from accounts.models import User
 from events.models import Client, Contract, Event
@@ -73,6 +76,32 @@ class EventAdminForm(forms.ModelForm):
 
 class EventForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        self.fields["event_date"].widget.attrs["placeholder"] = "jj/mm/aaaa"
+        self.fields["attendees"].widget.attrs["placeholder"] = ""
+        self.fields["event_retrospective"].widget.attrs["placeholder"] = (
+            "Lister ici :" + "\n"
+            "\t- Les évènements marquants" + "\n"
+            "\t- Les points positifs" + "\n"
+            "\t- Les points négatifs" + "\n"
+            "\t- Les axes d'amélioration"
+            )
+
     class Meta:
         model = Event
         exclude = ["contract", "support_contact"]
+        labels = {
+            "event_date": "Date de l'évènement",
+            "attendees": "Nombre de participants",
+            "event_retrospective": "Retour d'expérience",
+            "customer_satisfaction": "Satisfaction client (note sur 5)",
+            }
+
+    def clean_event_date(self, *args, **kwargs):
+        event_date = self.cleaned_data["event_date"]
+        if event_date > datetime.date.today():
+            raise ValidationError(
+                "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
+                )
+        return event_date

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 from events.models import Client, Contract, Event
-from events.forms import ClientForm, ContractForm
+from events.forms import ClientForm, ContractForm, EventForm
 from events.decorators import allowed_groups
 
 
@@ -140,6 +140,22 @@ def event_list(request):
         contracts = Contract.objects.filter(client__sales_contact=request.user).filter(signed=True)
         events = Event.objects.filter(contract__in=contracts)
     elif request.user.groups.filter(name="support").exists():
-        events = Event.objects.filter(support_contact=request.user)
+        events = Event.objects.filter(support_contact=request.user).filter(contract__signed=True)
     context = {"events": events}
     return render(request, "events/event/event_list.html", context)
+
+
+@login_required
+@allowed_groups(["support"])
+def event_update(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    if request.user != event.support_contact:
+        raise PermissionDenied()
+    event_form = EventForm(instance=event)
+    if request.method == "POST":
+        event_form = EventForm(request.POST, instance=event)
+        if event_form.is_valid():
+            event.save()
+            return redirect("event_list")
+    context = {"event_form": event_form, "event": event}
+    return render(request, "events/event/event_form.html", context)
