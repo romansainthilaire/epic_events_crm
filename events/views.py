@@ -89,3 +89,20 @@ def contract_create(request, client_id):
             return redirect("contract_list", client.pk)
     context = {"client": client, "contract_form": contract_form}
     return render(request, "events/contract/contract_form.html", context)
+
+
+@login_required
+@allowed_groups(["vente"])
+def contract_update(request, contract_id):
+    contract = get_object_or_404(Contract, pk=contract_id)
+    if request.user != contract.client.sales_contact or contract.signed:
+        raise PermissionDenied()
+    contract_form = ContractForm(instance=contract)
+    if request.method == "POST":
+        contract_form = ContractForm(request.POST, instance=contract)
+        if contract_form.is_valid():
+            contract.payment_due_date = datetime.datetime.now() + datetime.timedelta(60)
+            contract.save()
+            return redirect("contract_list", contract.client.pk)
+    context = {"client": contract.client, "contract_form": contract_form, "contract": contract}
+    return render(request, "events/contract/contract_form.html", context)

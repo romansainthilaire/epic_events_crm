@@ -9,7 +9,7 @@
 <h1 class="text-white mb-4">
     Contrats
     {% if user|has_group:"vente" %}
-    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="{% url 'contract_create' client.id %}">Nouveau</a>
+    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="{% url 'contract_create' client.pk %}">Nouveau</a>
     {% endif %}
 </h1>
 
@@ -43,7 +43,7 @@
                 <td></td>
                 <td></td>
                 {% else %}
-                <td><a class="btn btn-sm btn-outline-light" href="#">Modifier</a></td>
+                <td><a class="btn btn-sm btn-outline-light" href="{% url 'contract_update' contract.pk %}">Modifier</a></td>
                 <td><a class="btn btn-sm btn-outline-light" href="#">Supprimer</a></td>
                 {% endif %}
                 {% endif %}
