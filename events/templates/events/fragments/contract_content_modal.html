@@ -9,10 +9,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <h4 class="h5 text-secondary">Termes et conditions du contrat :</h4>
+                <p class="text-secondary">
+                    Client : {{ contract.client }}
+                </p>
+                <h4 class="h5 text-secondary">Termes et conditions du contrat</h4>
                 <div class="text-dark fs-7">{{ contract.content|linebreaks }}</div>
-                <div class="text-end">
+                <div class="text-end text-secondary">
+                    {% if contract.signed %}
+                    Signé par {{ contract.client.sales_contact.first_name|title }} {{ contract.client.sales_contact.last_name|upper }}
+                    le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}
+                    {% else %}
                     <a class="btn btn-outline-dark" href="#" data-bs-toggle="modal" data-bs-target="#signing-{{ contract }}">Signer</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

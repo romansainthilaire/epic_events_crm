@@ -25,7 +25,7 @@ def client_list(request):
     elif request.user.groups.filter(name="support").exists():
         events = Event.objects.filter(support_contact=request.user)
         contracts = Contract.objects.filter(event__in=events)
-        clients = Client.objects.filter(contracts__in=contracts)
+        clients = Client.objects.filter(contracts__in=contracts).distinct()
     context = {"clients": clients}
     return render(request, "events/client/client_list.html", context)
 
@@ -115,4 +115,18 @@ def contract_delete(request, contract_id):
     if request.user != contract.client.sales_contact or contract.signed:
         raise PermissionDenied()
     contract.delete()
+    return redirect("contract_list", contract.client.pk)
+
+
+@login_required
+@allowed_groups(["vente"])
+def contract_sign(request, contract_id):
+    contract = get_object_or_404(Contract, pk=contract_id)
+    if request.user != contract.client.sales_contact or contract.signed:
+        raise PermissionDenied()
+    contract.signed = True
+    contract.save()
+    event = Event()
+    event.contract = contract
+    event.save()
     return redirect("contract_list", contract.client.pk)

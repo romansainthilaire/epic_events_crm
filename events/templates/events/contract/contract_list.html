@@ -41,7 +41,6 @@
                 {% if contract.signed %}
                 <td>Signé le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}</td>
                 <td></td>
-                <td></td>
                 {% else %}
                 <td><a class="btn btn-sm btn-outline-light" href="{% url 'contract_update' contract.pk %}">Modifier</a></td>
                 <td>

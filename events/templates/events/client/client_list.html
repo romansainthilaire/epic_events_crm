@@ -23,8 +23,8 @@
                 <th>Historique</th>
                 {% if user|has_group:"vente" %}
                 <th></th>
-                {% endif %}
                 <th></th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -43,8 +43,8 @@
                 </td>
                 {% if user|has_group:"vente" %}
                 <td><a class="btn btn-sm btn-outline-light" href="{% url 'client_update' client.pk %}">Modifier</a></td>
-                {% endif %}
                 <td><a class="btn btn-sm btn-outline-light" href="{% url 'contract_list' client.pk %}">Contrats</a></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
