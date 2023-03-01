@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from events.models import Client, Contract, Event
-from events.forms import ClientAdminForm, ContractAdminForm, EventAdminForm
+from events.models import Client, Event
+from events.forms import ClientAdminForm, EventAdminForm
 
 
 class ClientAdmin(admin.ModelAdmin):
@@ -9,17 +9,6 @@ class ClientAdmin(admin.ModelAdmin):
     form = ClientAdminForm
     list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
     search_fields = ["first_name", "last_name", "company_name"]
-
-
-class ContractAdmin(admin.ModelAdmin):
-
-    form = ContractAdminForm
-    list_display = ["reference", "title", "amount", "client", "signed"]
-    list_filter = ["signed"]
-    search_fields = ["title", "client"]
-
-    def reference(self, obj):
-        return str(obj)
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -31,5 +20,4 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Client, ClientAdmin)
-admin.site.register(Contract, ContractAdmin)
 admin.site.register(Event, EventAdmin)

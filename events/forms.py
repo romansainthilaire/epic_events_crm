@@ -39,13 +39,6 @@ class ClientForm(forms.ModelForm):
             }
 
 
-class ContractAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Contract
-        exclude = ["payment_due_date", "signed"]
-
-
 class ContractForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
