@@ -131,3 +131,15 @@ def contract_sign(request, contract_id):
     event.contract = contract
     event.save()
     return redirect("contract_list", contract.client.pk)
+
+
+@login_required
+@allowed_groups(["vente", "support"])
+def event_list(request):
+    if request.user.groups.filter(name="vente").exists():
+        contracts = Contract.objects.filter(client__sales_contact=request.user).filter(signed=True)
+        events = Event.objects.filter(contract__in=contracts)
+    elif request.user.groups.filter(name="support").exists():
+        events = Event.objects.filter(support_contact=request.user)
+    context = {"events": events}
+    return render(request, "events/event/event_list.html", context)

@@ -19,4 +19,7 @@ urlpatterns = [
     path("contrats/<int:contract_id>/supprimer/", views.contract_delete, name="contract_delete"),
     path("contrats/<int:contract_id>/signer/", views.contract_sign, name="contract_sign"),
 
+    # Event
+    path("events/", views.event_list, name="event_list"),
+
 ]
