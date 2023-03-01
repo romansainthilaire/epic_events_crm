@@ -15,7 +15,7 @@ class Client(models.Model):
     mobile = PhoneNumberField(unique=True, region="FR")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.first_name.capitalize()} {self.last_name.upper()} - {self.company_name.upper()}"
