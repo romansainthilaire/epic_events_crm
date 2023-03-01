@@ -31,6 +31,7 @@ class Contract(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     signed = models.BooleanField(default=False)
+    signed_by = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return "EPE" + self.date_created.strftime('%y%m') + str(self.pk)

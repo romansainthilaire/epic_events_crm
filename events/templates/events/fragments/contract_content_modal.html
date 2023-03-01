@@ -21,7 +21,7 @@
                 <div class="text-dark fs-7">{{ contract.content|linebreaks }}</div>
                 <div class="text-end text-secondary fs-7">
                     {% if contract.signed %}
-                    Signé par {{ contract.client.sales_contact.first_name|title }} {{ contract.client.sales_contact.last_name|upper }}
+                    Signé par {{ contract.signed_by }}
                     le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}
                     {% else %}
                     <a class="btn btn-outline-dark" href="#" data-bs-toggle="modal" data-bs-target="#signing-{{ contract }}">Signer</a>

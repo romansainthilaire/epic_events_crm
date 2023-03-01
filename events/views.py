@@ -125,6 +125,7 @@ def contract_sign(request, contract_id):
     if request.user != contract.client.sales_contact or contract.signed:
         raise PermissionDenied()
     contract.signed = True
+    contract.signed_by = request.user.first_name.capitalize() + " " + request.user.last_name.upper()
     contract.save()
     event = Event()
     event.contract = contract

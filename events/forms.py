@@ -49,7 +49,7 @@ class ContractForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        exclude = ["client", "payment_due_date", "signed"]
+        exclude = ["client", "payment_due_date", "signed", "signed_by"]
         labels = {
             "title": "Titre",
             "content": "Termes et conditions",
