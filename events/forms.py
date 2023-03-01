@@ -43,14 +43,28 @@ class ContractAdminForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        exclude = ["signed"]
+        exclude = ["payment_due_date", "signed"]
 
 
 class ContractForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ContractForm, self).__init__(*args, **kwargs)
+        self.fields["title"].widget.attrs["placeholder"] = ""
+        self.fields["content"].widget.attrs["placeholder"] = ""
+        self.fields["amount"].widget.attrs["placeholder"] = ""
+
     class Meta:
         model = Contract
-        fields = "__all__"
+        exclude = ["client", "payment_due_date", "signed"]
+        labels = {
+            "title": "Titre",
+            "content": "Termes et conditions",
+            "amount": "Montant en euros (≥ 1000 euros)",
+            }
+        widgets = {
+          "content": forms.Textarea(attrs={"rows": 15}),
+        }
 
 
 class EventAdminForm(forms.ModelForm):

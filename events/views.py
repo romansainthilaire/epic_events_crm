@@ -1,9 +1,11 @@
+import datetime
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 from events.models import Client, Contract, Event
-from events.forms import ClientForm
+from events.forms import ClientForm, ContractForm
 from events.decorators import allowed_groups
 
 
@@ -68,3 +70,22 @@ def contract_list(request, client_id):
     contracts = Contract.objects.filter(client=client)
     context = {"contracts": contracts, "client": client}
     return render(request, "events/contract/contract_list.html", context)
+
+
+@login_required
+@allowed_groups(["vente"])
+def contract_create(request, client_id):
+    client = get_object_or_404(Client, pk=client_id)
+    if request.user != client.sales_contact:
+        raise PermissionDenied()
+    contract_form = ContractForm()
+    if request.method == "POST":
+        contract_form = ContractForm(request.POST)
+        if contract_form .is_valid():
+            contract = contract_form.save(commit=False)
+            contract.client = client
+            contract.payment_due_date = datetime.datetime.now() + datetime.timedelta(60)
+            contract.save()
+            return redirect("contract_list", client.pk)
+    context = {"client": client, "contract_form": contract_form}
+    return render(request, "events/contract/contract_form.html", context)
