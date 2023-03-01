@@ -57,3 +57,14 @@ def client_update(request, client_id):
             return redirect("client_list")
     context = {"client_form": client_form, "client": client}
     return render(request, "events/client/client_form.html", context)
+
+
+@login_required
+@allowed_groups(["vente"])
+def contract_list(request, client_id):
+    client = get_object_or_404(Client, pk=client_id)
+    if request.user != client.sales_contact:
+        raise PermissionDenied()
+    contracts = Contract.objects.filter(client=client)
+    context = {"contracts": contracts, "client": client}
+    return render(request, "events/contract/contract_list.html", context)

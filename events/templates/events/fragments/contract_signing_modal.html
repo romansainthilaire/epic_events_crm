@@ -1,0 +1,18 @@
+<div class="modal fade" id="signing-{{ contract }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h3 class="h4">Signature du contrat - {{ contract }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes vous certain de vouloir signer ce contrat ?</p>
+                <p>Une fois signé, un contrat ne peut plus être modifié ou supprimé.</p>
+                <p><a class="text-dark" href="#" data-bs-toggle="modal" data-bs-target="#{{ contract }}">← Relire le contrat</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark">Signer</button>
+            </div>
+        </div>
+    </div>
+</div>

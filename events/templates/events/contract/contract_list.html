@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load auth_extras %}
+{% load humanize %}
+
+{% block title %}Epic Events | Contrats{% endblock title %}
+
+{% block content %}
+
+<h1 class="text-white mb-4">
+    Contrats
+    {% if user|has_group:"vente" %}
+    <a class="btn btn-sm btn-secondary ms-4 mb-1" href="#">Nouveau</a>
+    {% endif %}
+</h1>
+
+<h2 class="h4">{{ client.first_name|title }} {{ client.last_name|upper }} - {{ client.company_name|upper }}</h2>
+
+{% if contracts %}
+<div class="table-responsive mt-4">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Titre</th>
+                <th>Montant</th>
+                <th>Échéance paiement</th>
+                {% if user|has_group:"vente" %}
+                <th></th>
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for contract in contracts %}
+            <tr class="align-middle">
+                <td><a href="#" data-bs-toggle="modal" data-bs-target="#{{ contract }}">{{ contract }}</a></td>
+                <td>{{ contract.title|title }}</td>
+                <td class="nobr">{{ contract.amount|intcomma }} €</td>
+                <td>{{ contract.payment_due_date|date:"d/m/Y" }}</td>
+                {% if user|has_group:"vente" %}
+                {% if contract.signed %}
+                <td>Signé le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}</td>
+                <td></td>
+                <td></td>
+                {% else %}
+                <td><a class="btn btn-sm btn-outline-light" href="#">Modifier</a></td>
+                <td><a class="btn btn-sm btn-outline-light" href="#">Supprimer</a></td>
+                {% endif %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>Aucun contrat n'est associé à ce client.</p>
+{% endif %}
+
+<a href="{% url 'client_list' %}">← Tous les clients</a>
+
+{% for contract in contracts %}
+{% include "events/fragments/contract_content_modal.html" with contract=contract %}
+{% include "events/fragments/contract_signing_modal.html" with contract=contract %}
+{% endfor %}
+
+{% endblock content %}

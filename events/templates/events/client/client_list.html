@@ -44,7 +44,7 @@
                 {% if user|has_group:"vente" %}
                 <td><a class="btn btn-sm btn-outline-light" href="{% url 'client_update' client.pk %}">Modifier</a></td>
                 {% endif %}
-                <td><a class="btn btn-sm btn-outline-light" href="#">Contrats</a></td>
+                <td><a class="btn btn-sm btn-outline-light" href="{% url 'contract_list' client.pk %}">Contrats</a></td>
             </tr>
             {% endfor %}
         </tbody>
