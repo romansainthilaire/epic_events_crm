@@ -83,6 +83,9 @@ class GestionUserAdmin(UserAdmin):
         queryset = super().get_queryset(request)
         return queryset.filter(is_admin=False)
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class GestionClientAdmin(ClientAdmin):
 
@@ -90,12 +93,21 @@ class GestionClientAdmin(ClientAdmin):
     list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
     search_fields = ["first_name", "last_name", "company_name"]
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class GestionEventAdmin(ClientAdmin):
 
     form = EventAdminForm
     list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 gestion_admin_site = GestionAdminSite(name="gestion-admin")
