@@ -54,11 +54,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'api_doc' %}">API</a>
                         </li>
-                        {% if user.is_staff %}
                         <li class="nav-item">
+                            {% if user.is_admin %}
                             <a class="nav-link" href="{% url 'admin:index' %}">Administration</a>
+                            {% elif user.is_staff and user|has_group:"gestion" %}
+                            <a class="nav-link" href="/gestion-admin/">Administration</a>
+                            {% elif user.is_staff and user|has_group:"vente" %}
+                            <a class="nav-link" href="/vente-admin/">Administration</a>
+                            {% elif user.is_staff and user|has_group:"support" %}
+                            <a class="nav-link" href="/support-admin/">Administration</a>
+                            {% endif %}
                         </li>
-                        {% elif user|has_group:"vente" or user|has_group:"support" %}
+                        {% if user|has_group:"vente" or user|has_group:"support" %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'client_list' %}">Clients</a>
                         </li>
