@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "bootstrap5",
     "phonenumber_field",
+    "rest_framework",
     "accounts",
     "events",
 ]
