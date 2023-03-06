@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from accounts.models import User
 from events.models import Client, Contract, Event
-from events.forms import ClientAdminForm, EventAdminForm
+from accounts.forms import ClientAdminForm, EventAdminForm
 
 # BaseUserAdmin is used to hash passwords when creating users with the admin site
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/

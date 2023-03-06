@@ -3,19 +3,7 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 
-from accounts.models import User
 from events.models import Client, Contract, Event
-
-
-class ClientAdminForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(ClientAdminForm, self).__init__(*args, **kwargs)
-        self.fields["sales_contact"].queryset = User.objects.filter(groups__name="vente")
-
-    class Meta:
-        model = Client
-        fields = "__all__"
 
 
 class ClientForm(forms.ModelForm):
@@ -63,17 +51,6 @@ class ContractForm(forms.ModelForm):
         }
 
 
-class EventAdminForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(EventAdminForm, self).__init__(*args, **kwargs)
-        self.fields["support_contact"].queryset = User.objects.filter(groups__name="support")
-
-    class Meta:
-        model = Event
-        fields = ["contract", "support_contact"]
-
-
 class EventForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -105,3 +82,24 @@ class EventForm(forms.ModelForm):
                 "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
                 )
         return event_date
+
+
+# --------------------  ↓  Forms used for admin site - users with "vente" group  ↓  --------------------
+
+
+class ClientAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Client
+        exclude = ["sales_contact"]
+
+
+class ContractAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ContractAdminForm, self).__init__(*args, **kwargs)
+        self.fields["client"].queryset = Client.objects.filter(sales_contact=self.current_user)
+
+    class Meta:
+        model = Client
+        exclude = ["signed", "signed_by"]

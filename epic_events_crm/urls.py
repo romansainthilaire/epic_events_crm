@@ -18,6 +18,7 @@ from django.urls import path, include
 
 from accounts import views
 from accounts.admin import gestion_admin_site
+from events.admin import vente_admin_site
 
 urlpatterns = [
 
@@ -26,6 +27,9 @@ urlpatterns = [
 
     path("gestion-admin/logout/", views.log_out),
     path("gestion-admin/", gestion_admin_site.urls),
+
+    path("vente-admin/logout/", views.log_out),
+    path("vente-admin/", vente_admin_site.urls),
 
     path("", include("accounts.urls")),
     path("", include("events.urls")),

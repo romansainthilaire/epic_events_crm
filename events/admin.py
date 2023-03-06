@@ -1,0 +1,98 @@
+from django.contrib.admin import AdminSite, ModelAdmin
+from django.contrib import messages
+
+from events.models import Client, Contract, Event
+from events.forms import ClientAdminForm, ContractAdminForm
+
+
+# --------------------  ↓  Admin site for users with "vente" group  ↓  --------------------
+
+
+class VenteAdminSite(AdminSite):
+
+    site_header = "Epic Event Administration"
+    site_title = "Epic Event"
+    index_title = "Site d'administration - Vente"
+
+
+class VenteClientAdmin(ModelAdmin):
+
+    form = ClientAdminForm
+    list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
+    search_fields = ["first_name", "last_name", "company_name"]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(sales_contact=request.user)
+
+    def save_model(self, request, obj, form, change):
+        obj.sales_contact = request.user
+        super().save_model(request, obj, form, change)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class VenteContractAdmin(ModelAdmin):
+
+    form = ContractAdminForm
+    list_display = ["reference", "title", "amount", "payment_due_date", "signed"]
+    list_editable = ["signed"]
+
+    def reference(self, obj):
+        return str(obj)
+
+    def get_form(self, request, *args, **kwargs):
+        form = super(VenteContractAdmin, self).get_form(request, *args, **kwargs)
+        form.current_user = request.user
+        return form
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(client__sales_contact=request.user)
+
+    def save_model(self, request, obj, form, change):
+        if form.changed_data == ["signed"]:
+            if obj.signed:
+                obj.signed_by = request.user.first_name.capitalize() + " " + request.user.last_name.upper()
+                obj.save()
+                event = Event()
+                event.contract = obj
+                event.save()
+                super().save_model(request, obj, form, change)
+            else:
+                messages.set_level(request, messages.ERROR)
+                messages.error(request, "Il est impossible de retirer la signature d'un contrat.")
+        elif obj.signed:
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, "Un contrat signé ne peut pas être modifié.")
+        else:
+            super().save_model(request, obj, form, change)
+
+    def delete_model(self, request, obj):
+        if obj.signed:
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, "Un contrat signé ne peut pas être supprimé")
+        else:
+            return super().delete_model(request, obj)
+
+
+class VenteEventAdmin(ModelAdmin):
+
+    list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
+    search_fields = ["contract"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+vente_admin_site = VenteAdminSite(name="vente-admin")
+vente_admin_site.register(Client, VenteClientAdmin)
+vente_admin_site.register(Contract, VenteContractAdmin)
+vente_admin_site.register(Event, VenteEventAdmin)
