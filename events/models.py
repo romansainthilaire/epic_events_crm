@@ -34,7 +34,7 @@ class Contract(models.Model):
     signed_by = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return "EPE" + self.date_created.strftime('%y%m') + str(self.pk)
+        return "EPE" + self.date_created.strftime("%y%m") + str(self.pk)
 
 
 class Event(models.Model):
@@ -51,4 +51,4 @@ class Event(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.contract.title} - {self.event_date}"
+        return f"{self.contract.title}"
