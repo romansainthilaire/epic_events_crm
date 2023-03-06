@@ -46,7 +46,6 @@ class UserAdmin(BaseUserAdmin):
 
 class ClientAdmin(ModelAdmin):
 
-    form = ClientAdminForm
     list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
     search_fields = ["first_name", "last_name", "company_name"]
 
@@ -61,7 +60,6 @@ class ContractAdmin(ModelAdmin):
 
 class EventAdmin(ModelAdmin):
 
-    form = EventAdminForm
     list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
 
@@ -116,6 +114,9 @@ class GestionContractAdmin(ModelAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
         return False
 
 
