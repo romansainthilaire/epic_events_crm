@@ -8,10 +8,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-secondary">
-                <p class="text-dark">
-                    Compte rendu rédigé par {{ event.support_contact.first_name|title }} {{ event.support_contact.last_name|upper }}
-                    le {{ event.date_updated|date:"d/m/Y" }}.
-                </p>
                 <ul>
                     <li>Réf. contrat : <span class="text-dark">{{ event.contract }}</span></li>
                     <li>Date de l'évènement : <span class="text-dark">{{ event.event_date|date:"d/m/Y" }}</span></li>

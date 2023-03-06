@@ -53,7 +53,10 @@ class ClientAdmin(ModelAdmin):
 
 class ContractAdmin(ModelAdmin):
 
-    list_display = ["title", "amount", "payment_due_date", "signed"]
+    list_display = ["reference", "title", "amount", "payment_due_date", "signed"]
+
+    def reference(self, obj):
+        return str(obj)
 
 
 class EventAdmin(ModelAdmin):
@@ -99,6 +102,20 @@ class GestionClientAdmin(ModelAdmin):
         return False
 
 
+class GestionContractAdmin(ModelAdmin):
+
+    list_display = ["reference", "title", "amount", "payment_due_date", "signed"]
+
+    def reference(self, obj):
+        return str(obj)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 class GestionEventAdmin(ModelAdmin):
 
     form = EventAdminForm
@@ -115,4 +132,5 @@ class GestionEventAdmin(ModelAdmin):
 gestion_admin_site = GestionAdminSite(name="gestion-admin")
 gestion_admin_site.register(User, GestionUserAdmin)
 gestion_admin_site.register(Client, GestionClientAdmin)
+gestion_admin_site.register(Contract, GestionContractAdmin)
 gestion_admin_site.register(Event, GestionEventAdmin)
