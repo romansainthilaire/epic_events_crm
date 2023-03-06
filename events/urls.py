@@ -20,7 +20,7 @@ urlpatterns = [
     path("contrats/<int:contract_id>/signer/", views.contract_sign, name="contract_sign"),
 
     # Event
-    path("events/", views.event_list, name="event_list"),
-    path("events/<int:event_id>/", views.event_update, name="event_update"),
+    path("evenements/", views.event_list, name="event_list"),
+    path("evenements/<int:event_id>/", views.event_update, name="event_update"),
 
 ]
