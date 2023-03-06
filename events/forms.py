@@ -101,7 +101,7 @@ class ContractAdminForm(forms.ModelForm):
         self.fields["client"].queryset = Client.objects.filter(sales_contact=self.current_user)
 
     class Meta:
-        model = Client
+        model = Contract
         exclude = ["signed", "signed_by"]
 
 
