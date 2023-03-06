@@ -10,7 +10,8 @@ from events.forms import ClientAdminForm, EventAdminForm
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
 
 
-# ------------------------------ Admin site for admin users ------------------------------
+# --------------------  ↓  Admin site for admin users  ↓  --------------------
+
 
 admin.site.site_header = "Epic Event Administration"
 admin.site.site_title = "Epic Event"
@@ -68,7 +69,8 @@ admin.site.register(Contract, ContractAdmin)
 admin.site.register(Event, EventAdmin)
 
 
-# ------------------------------ Admin site for users with "gestion" group ------------------------------
+# --------------------  ↓  Admin site for users with "gestion" group  ↓  --------------------
+
 
 class GestionAdminSite(AdminSite):
 
@@ -87,7 +89,7 @@ class GestionUserAdmin(UserAdmin):
         return False
 
 
-class GestionClientAdmin(ClientAdmin):
+class GestionClientAdmin(ModelAdmin):
 
     form = ClientAdminForm
     list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
@@ -97,7 +99,7 @@ class GestionClientAdmin(ClientAdmin):
         return False
 
 
-class GestionEventAdmin(ClientAdmin):
+class GestionEventAdmin(ModelAdmin):
 
     form = EventAdminForm
     list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
