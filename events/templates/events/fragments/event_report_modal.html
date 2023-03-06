@@ -1,0 +1,26 @@
+{% load humanize %}
+
+<div class="modal fade" id="event-report-{{ event.pk }}">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h4 text-dark">{{ event.contract.title }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-secondary">
+                <p class="text-dark">
+                    Compte rendu rédigé par {{ event.support_contact.first_name|title }} {{ event.support_contact.last_name|upper }}
+                    le {{ event.date_updated|date:"d/m/Y" }}.
+                </p>
+                <ul>
+                    <li>Réf. contrat : <span class="text-dark">{{ event.contract }}</span></li>
+                    <li>Date de l'évènement : <span class="text-dark">{{ event.event_date|date:"d/m/Y" }}</span></li>
+                    <li>Nombre de participants : <span class="text-dark">{{ event.attendees }}</span></li>
+                    <li>Satisfaction client : <span class="text-dark">{{ event.customer_satisfaction }}/5</span></li>
+                </ul>
+                <h4 class="h5">Notes</h4>
+                <div class="text-dark fs-7">{{ event.event_retrospective|linebreaks }}</div>
+            </div>
+        </div>
+    </div>
+</div>

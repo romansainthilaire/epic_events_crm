@@ -34,7 +34,7 @@
                     </a>
                     {% elif user|has_group:"vente" %}
                     {% if event.event_retrospective %}
-                    <a href="#">Afficher</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#event-report-{{ event.pk }}">Afficher</a>
                     {% else %}
                     <i>Non rédigé</i>
                     {% endif %}
@@ -58,6 +58,7 @@
 
 {% for event in events %}
 {% include "events/fragments/contract_content_modal.html" with contract=event.contract %}
+{% include "events/fragments/event_report_modal.html" with event=event %}
 {% endfor %}
 
 {% endblock content %}
