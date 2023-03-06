@@ -50,14 +50,6 @@
 
 <h2 class="h3 text-black mt-4 mb-3">Autorisations</h2>
 
-<p class="mb-1">
-    Les membres de l'équipe de gestion peuvent effectuer les opérations CRUD sur les clients et évènements.
-</p>
-
-<p>
-    Les membres des équipes de vente et de support ont des accès plus limités :
-</p>
-
 <div class="table-responsive mt-4">
     <table class="table table-dark">
         <thead>
@@ -66,10 +58,28 @@
                 <th>Créer</th>
                 <th>Afficher</th>
                 <th>Mettre à jour</th>
-                <th>Suprimer</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="light-grey">
+            <tr>
+                <td>Un membre de l'équipe de <span class="text-white fw-bold">gestion</span> peut :</td>
+                <td>
+                    <p class="mb-1">- des utilisateurs</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les utilisateurs</p>
+                    <p class="mb-1">- les clients</p>
+                    <p class="mb-1">- les contrats</p>
+                    <p class="mb-1">- les évènements</p>
+                </td>
+                <td>
+                    <p class="mb-1">- les utilisateurs</p>
+                    <p class="mb-1">- les responsables des clients</p>
+                    <p class="mb-1">- les responsables des évènements</p>
+                </td>
+                <td></td>
+            </tr>
             <tr>
                 <td>Un membre de l'équipe de <span class="text-white fw-bold">vente</span> peut :</td>
                 <td>

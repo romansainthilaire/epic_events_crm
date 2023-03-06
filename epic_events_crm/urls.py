@@ -22,16 +22,19 @@ from events.admin import vente_admin_site
 
 urlpatterns = [
 
+    path("", include("accounts.urls")),
+    path("", include("events.urls")),
+
+    # Admin site for admin users
     path("admin/logout/", views.log_out),
     path("admin/", admin.site.urls),
 
+    # Admin site for staff users with "gestion" group
     path("gestion-admin/logout/", views.log_out),
     path("gestion-admin/", gestion_admin_site.urls),
 
+    # Admin site for staff users with "vente" group
     path("vente-admin/logout/", views.log_out),
     path("vente-admin/", vente_admin_site.urls),
-
-    path("", include("accounts.urls")),
-    path("", include("events.urls")),
 
 ]

@@ -98,6 +98,9 @@ class GestionClientAdmin(ModelAdmin):
     list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
     search_fields = ["first_name", "last_name", "company_name"]
 
+    def has_add_permission(self, request):
+        return False
+
     def has_delete_permission(self, request, obj=None):
         return False
 

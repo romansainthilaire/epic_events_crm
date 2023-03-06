@@ -28,7 +28,7 @@ class ClientAdminForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = "__all__"
+        fields = ["sales_contact"]
 
 
 class EventAdminForm(forms.ModelForm):

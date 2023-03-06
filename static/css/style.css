@@ -11,6 +11,10 @@ body {
     font-size: 15px;
 }
 
+.light-grey {
+    color: rgb(200, 200, 200);
+}
+
 #main-container {
     min-height: calc(100vh - 190px);
 }
