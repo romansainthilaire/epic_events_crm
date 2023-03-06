@@ -2,7 +2,7 @@ from django.contrib.admin import AdminSite, ModelAdmin
 from django.contrib import messages
 
 from events.models import Client, Contract, Event
-from events.forms import ClientAdminForm, ContractAdminForm
+from events.forms import ClientAdminForm, ContractAdminForm, EventAdminForm
 
 
 # --------------------  ↓  Admin site for users with "vente" group  ↓  --------------------
@@ -96,3 +96,80 @@ vente_admin_site = VenteAdminSite(name="vente-admin")
 vente_admin_site.register(Client, VenteClientAdmin)
 vente_admin_site.register(Contract, VenteContractAdmin)
 vente_admin_site.register(Event, VenteEventAdmin)
+
+
+# --------------------  ↓  Admin site for users with "support" group  ↓  --------------------
+
+
+class SupportAdminSite(AdminSite):
+
+    site_header = "Epic Event Administration"
+    site_title = "Epic Event"
+    index_title = "Site d'administration - Support"
+
+
+class SupportClientAdmin(ModelAdmin):
+
+    list_display = ["email", "first_name", "last_name", "company_name", "sales_contact"]
+    search_fields = ["first_name", "last_name", "company_name"]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        events = Event.objects.filter(support_contact=request.user)
+        contracts = Contract.objects.filter(event__in=events)
+        return queryset.filter(contracts__in=contracts).distinct()
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class SupportContractAdmin(ModelAdmin):
+
+    list_display = ["reference", "title", "amount", "payment_due_date", "signed"]
+    list_editable = ["signed"]
+
+    def reference(self, obj):
+        return str(obj)
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        events = Event.objects.filter(support_contact=request.user)
+        return queryset.filter(event__in=events)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class SupportEventAdmin(ModelAdmin):
+
+    form = EventAdminForm
+    list_display = ["contract", "support_contact", "event_date", "attendees", "customer_satisfaction"]
+    search_fields = ["contract"]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(support_contact=request.user)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+support_admin_site = SupportAdminSite(name="support-admin")
+support_admin_site.register(Client, SupportClientAdmin)
+support_admin_site.register(Contract, SupportContractAdmin)
+support_admin_site.register(Event, SupportEventAdmin)

@@ -84,7 +84,7 @@ class EventForm(forms.ModelForm):
         return event_date
 
 
-# --------------------  ↓  Forms used for admin site - users with "vente" group  ↓  --------------------
+# --------------------  ↓  Forms used for admin site  ↓  --------------------
 
 
 class ClientAdminForm(forms.ModelForm):
@@ -103,3 +103,10 @@ class ContractAdminForm(forms.ModelForm):
     class Meta:
         model = Client
         exclude = ["signed", "signed_by"]
+
+
+class EventAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Event
+        exclude = ["contract", "support_contact"]

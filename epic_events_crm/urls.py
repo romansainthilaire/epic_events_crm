@@ -19,6 +19,7 @@ from django.urls import path, include
 from accounts import views
 from accounts.admin import gestion_admin_site
 from events.admin import vente_admin_site
+from events.admin import support_admin_site
 
 urlpatterns = [
 
@@ -36,5 +37,9 @@ urlpatterns = [
     # Admin site for staff users with "vente" group
     path("vente-admin/logout/", views.log_out),
     path("vente-admin/", vente_admin_site.urls),
+
+    # Admin site for staff users with "support" group
+    path("support-admin/logout/", views.log_out),
+    path("support-admin/", support_admin_site.urls),
 
 ]

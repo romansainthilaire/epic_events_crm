@@ -39,4 +39,4 @@ class EventAdminForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ["contract", "support_contact"]
+        fields = ["support_contact"]
