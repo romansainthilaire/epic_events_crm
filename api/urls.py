@@ -1,7 +1,13 @@
 from django.urls import path, include
 
+from rest_framework.routers import DefaultRouter
+
 from api import views
 from accounts.views import log_in, log_out
+
+router = DefaultRouter()
+
+router.register("clients", views.ClientViewSet, basename="client")
 
 urlpatterns = [
 
@@ -10,8 +16,6 @@ urlpatterns = [
     path("api-auth/logout/", log_out),
     path("api-auth/", include("rest_framework.urls")),
 
-    # Clients
-    path("clients/", views.ClientListCreate.as_view()),
-    path("clients/<int:client_id>/", views.ClientRetrieveUpdate.as_view()),
+    path("", include(router.urls)),
 
 ]
