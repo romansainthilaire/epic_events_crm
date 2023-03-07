@@ -4,10 +4,17 @@
 
 {% block content %}
 
-<h1 class="text-white mb-4">Epic Events API</h1>
+<p class="mb-1">
+    {% if user.is_authenticated %}
+    <a class="btn btn-dark" href="/api/">Accéder à l'API</a>
+    {% else %}
+    <a class="btn btn-dark" href="#" data-bs-toggle="modal" data-bs-target="#login-required-modal">Accéder à l'API</a>
+    {% endif %}
+</p>
 
-<p class="mb-1"><a href="#">Documentation Postman</a></p>
+<h1 class="h3 text-black mt-4 mb-3">Points de terminaisons</h1>
 
-<h2 class="h3 text-black mt-4 mb-3">Points de terminaisons</h2>
+{% include "events/fragments/login_required_modal.html" %}
 
 {% endblock content %}
+
