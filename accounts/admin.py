@@ -70,7 +70,7 @@ admin.site.register(Contract, ContractAdmin)
 admin.site.register(Event, EventAdmin)
 
 
-# --------------------  ↓  Admin site for users with "gestion" group  ↓  --------------------
+# --------------------  ↓  Admin site for staff users with "gestion" group  ↓  --------------------
 
 
 class GestionAdminSite(AdminSite):
