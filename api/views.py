@@ -63,9 +63,7 @@ class ContractViewSet(viewsets.ModelViewSet):
             return Contract.objects.filter(client__in=clients)
         elif group == "support":
             events = Event.objects.filter(support_contact=self.request.user)
-            contracts = Contract.objects.filter(event__in=events)
-            clients = Client.objects.filter(contracts__in=contracts).distinct()
-            return Contract.objects.filter(client__in=clients)
+            return Contract.objects.filter(event__in=events)
 
     def perform_create(self, serializer):
         if serializer.is_valid:
