@@ -25,6 +25,7 @@ urlpatterns = [
 
     path("", include("accounts.urls")),
     path("", include("events.urls")),
+    path("api/", include("api.urls")),
 
     # Admin site for admin users
     path("admin/logout/", views.log_out),
