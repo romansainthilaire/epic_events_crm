@@ -12,5 +12,6 @@ urlpatterns = [
 
     # Clients
     path("clients/", views.ClientListCreate.as_view()),
+    path("clients/<int:client_id>/", views.ClientRetrieveUpdate.as_view()),
 
 ]
