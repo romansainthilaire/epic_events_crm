@@ -12,13 +12,11 @@ router.register("contracts", views.ContractViewSet, basename="contract")
 
 urlpatterns = [
 
-    path("", include(router.urls)),
-
-    # Authentication
     path("api-auth/login/", log_in),
     path("api-auth/logout/", log_out),
     path("api-auth/", include("rest_framework.urls")),
 
-    # path("/contracts/<int:contract_id>/sign/", ),
+    path("", include(router.urls)),
+    path("contracts/<int:contract_id>/sign/", views.sign_contract),
 
 ]

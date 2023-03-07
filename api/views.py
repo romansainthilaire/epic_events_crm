@@ -1,7 +1,12 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 from events.models import Client, Contract, Event
 from api.serializers import ClientSerializer, ContractSerializer
@@ -86,3 +91,21 @@ class ContractViewSet(viewsets.ModelViewSet):
         if instance.signed:
             raise PermissionDenied("Vous ne pouvez pas supprimer un contrat signé.")
         instance.delete()
+
+
+@api_view(["POST"])
+def sign_contract(request, contract_id):
+    if not request.user.groups.exists() or request.user.groups.first().name != "vente":
+        raise PermissionDenied()
+    contract = get_object_or_404(Contract, pk=contract_id)
+    if contract.client.sales_contact != request.user:
+        raise PermissionDenied("Vous n'êtes pas responsable de ce client.")
+    if contract.signed:
+        raise PermissionDenied("Ce contrat a déjà été signé.")
+    contract.signed = True
+    contract.signed_by = request.user.first_name.capitalize() + " " + request.user.last_name.upper()
+    contract.save()
+    event = Event()
+    event.contract = contract
+    event.save()
+    return Response(status=status.HTTP_201_CREATED)
