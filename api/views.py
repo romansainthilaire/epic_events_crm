@@ -1,5 +1,6 @@
 from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework import filters
 
 from events.models import Client, Contract, Event
 from api.serializers import ClientSerializer
@@ -20,6 +21,8 @@ class ClientViewSet(mixins.CreateModelMixin,
         "PUT": ["vente"],
         "PATCH": ["vente"]
     }
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["first_name", "last_name", "email"]
 
     def get_queryset(self):
         group = self.request.user.groups.first().name
