@@ -18,19 +18,7 @@ def log_in(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                if user.is_admin:
-                    return redirect("admin:index")
-                elif user.is_staff:
-                    if request.user.groups.exists():
-                        group = request.user.groups.first().name
-                        if group == "gestion":
-                            return redirect("/gestion-admin/")
-                        elif group == "vente":
-                            return redirect("/vente-admin/")
-                        elif group == "support":
-                            return redirect("/support-admin/")
-                else:
-                    return redirect("about")
+                return redirect("about")
             else:
                 error_message = "Identifiants invalides."
                 context["error_message"] = error_message
