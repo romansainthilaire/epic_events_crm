@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from events.models import Client, Contract
+from events.models import Client, Contract, Event
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -45,3 +45,26 @@ class ContractSerializer(serializers.ModelSerializer):
             ]
         read_only_fields = ["date_created", "date_updated", "signed", "signed_by"]
         extra_kwargs = {"client": {"write_only": True}}
+
+
+class EventSerializer(serializers.ModelSerializer):
+
+    title = serializers.CharField(source="contract.title", read_only=True)
+    contract_id = serializers.IntegerField(source="contract.id", read_only=True)
+    support_contact_id = serializers.IntegerField(source="support_contact.id", read_only=True)
+
+    class Meta:
+        model = Event
+        fields = [
+            "id",
+            "title",
+            "contract_id",
+            "support_contact_id",
+            "event_date",
+            "attendees",
+            "event_retrospective",
+            "customer_satisfaction",
+            "date_created",
+            "date_updated",
+            ]
+        read_only_fields = ["date_created", "date_updated"]

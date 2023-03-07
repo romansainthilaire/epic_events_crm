@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from events.models import Client, Contract, Event
-from api.serializers import ClientSerializer, ContractSerializer
+from api.serializers import ClientSerializer, ContractSerializer, EventSerializer
 from api.permissions import HasGroupPermission
 
 
@@ -109,3 +109,29 @@ def sign_contract(request, contract_id):
     event.contract = contract
     event.save()
     return Response(status=status.HTTP_201_CREATED)
+
+
+class EventViewSet(mixins.ListModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   viewsets.GenericViewSet):
+
+    serializer_class = EventSerializer
+    permission_classes = [HasGroupPermission]
+    required_groups = {
+        "GET": ["gestion", "vente", "support"],
+        "PUT": ["support"],
+        "PATCH": ["support"]
+    }
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["contract__client__first_name", "contract__client__last_name", "contract__client__email"]
+
+    def get_queryset(self):
+        group = self.request.user.groups.first().name
+        if group == "gestion":
+            return Event.objects.all()
+        elif group == "vente":
+            contracts = Contract.objects.filter(client__sales_contact=self.request.user).filter(signed=True)
+            return Event.objects.filter(contract__in=contracts)
+        elif group == "support":
+            return Event.objects.filter(support_contact=self.request.user).filter(contract__signed=True)
