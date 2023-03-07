@@ -32,6 +32,7 @@ class ContractSerializer(serializers.ModelSerializer):
         model = Contract
         fields = [
             "id",
+            "client",
             "client_id",
             "title",
             "content",
@@ -43,3 +44,4 @@ class ContractSerializer(serializers.ModelSerializer):
             "signed_by"
             ]
         read_only_fields = ["date_created", "date_updated", "signed", "signed_by"]
+        extra_kwargs = {"client": {"write_only": True}}

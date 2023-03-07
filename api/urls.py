@@ -19,8 +19,6 @@ urlpatterns = [
     path("api-auth/logout/", log_out),
     path("api-auth/", include("rest_framework.urls")),
 
-    # Contract
-    path("clients/<int:client_id>/contracts/", views.ContractCreate.as_view()),
     # path("/contracts/<int:contract_id>/sign/", ),
 
 ]

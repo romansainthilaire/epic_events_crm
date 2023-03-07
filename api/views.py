@@ -1,8 +1,5 @@
-from django.shortcuts import get_object_or_404
-
 from rest_framework import mixins
 from rest_framework import viewsets
-from rest_framework import generics
 from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
 
@@ -43,16 +40,13 @@ class ClientViewSet(mixins.CreateModelMixin,
         serializer.save(sales_contact=self.request.user)
 
 
-class ContractViewSet(mixins.ListModelMixin,
-                      mixins.RetrieveModelMixin,
-                      mixins.UpdateModelMixin,
-                      mixins.DestroyModelMixin,
-                      viewsets.GenericViewSet):
+class ContractViewSet(viewsets.ModelViewSet):
 
     serializer_class = ContractSerializer
     permission_classes = [HasGroupPermission]
     required_groups = {
         "GET": ["gestion", "vente", "support"],
+        "POST": ["vente"],
         "PUT": ["vente"],
         "PATCH": ["vente"],
         "DELETE": ["vente"]
@@ -73,32 +67,24 @@ class ContractViewSet(mixins.ListModelMixin,
             clients = Client.objects.filter(contracts__in=contracts).distinct()
             return Contract.objects.filter(client__in=clients)
 
+    def perform_create(self, serializer):
+        if serializer.is_valid:
+            client = serializer.validated_data["client"]
+            if client.sales_contact != self.request.user:
+                raise PermissionDenied("Vous n'êtes pas responsable de ce client.")
+            serializer.save()
+
     def perform_update(self, serializer):
-        contract = Contract.objects.get(pk=self.kwargs["pk"])
-        if contract.signed:
-            raise PermissionDenied("Vous ne pouvez pas modifier un contrat signé.")
-        serializer.save()
+        if serializer.is_valid:
+            client = serializer.validated_data["client"]
+            if client.sales_contact != self.request.user:
+                raise PermissionDenied("Vous n'êtes pas responsable de ce client.")
+            contract = Contract.objects.get(pk=self.kwargs["pk"])
+            if contract.signed:
+                raise PermissionDenied("Vous ne pouvez pas modifier un contrat signé.")
+            serializer.save()
 
     def perform_destroy(self, instance):
         if instance.signed:
             raise PermissionDenied("Vous ne pouvez pas supprimer un contrat signé.")
         instance.delete()
-
-
-class ContractCreate(generics.CreateAPIView):
-
-    serializer_class = ContractSerializer
-    permission_classes = [HasGroupPermission]
-    required_groups = {
-        "POST": ["vente"]
-    }
-
-    def get_queryset(self):
-        client = get_object_or_404(Client, pk=self.kwargs["client_id"])
-        if client.sales_contact != self.request.user:
-            raise PermissionDenied("Vous n'êtes pas responsable de ce client.")
-        return Contract.objects.filter(client=client)
-
-    def perform_create(self, serializer):
-        client = get_object_or_404(Client, pk=self.kwargs["client_id"])
-        serializer.save(client=client)
