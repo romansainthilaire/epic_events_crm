@@ -26,13 +26,12 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class ContractSerializer(serializers.ModelSerializer):
 
-    client_id = serializers.IntegerField(source="client.id", read_only=True)
+    client_id = serializers.SlugRelatedField(source="client", slug_field="id", queryset=Client.objects.all())
 
     class Meta:
         model = Contract
         fields = [
             "id",
-            "client",
             "client_id",
             "title",
             "content",
@@ -44,7 +43,6 @@ class ContractSerializer(serializers.ModelSerializer):
             "signed_by"
             ]
         read_only_fields = ["payment_due_date", "date_created", "date_updated", "signed", "signed_by"]
-        extra_kwargs = {"client": {"write_only": True}}
 
 
 class EventSerializer(serializers.ModelSerializer):
