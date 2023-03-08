@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import get_object_or_404
 
 from rest_framework import mixins
@@ -73,7 +75,8 @@ class ContractViewSet(viewsets.ModelViewSet):
             client = serializer.validated_data["client"]
             if client.sales_contact != self.request.user:
                 raise PermissionDenied("Vous n'êtes pas responsable de ce client.")
-            serializer.save()
+            payment_due_date = datetime.datetime.now() + datetime.timedelta(60)
+            serializer.save(payment_due_date=payment_due_date)
 
     def perform_update(self, serializer):
         if serializer.is_valid:

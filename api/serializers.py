@@ -43,7 +43,7 @@ class ContractSerializer(serializers.ModelSerializer):
             "signed",
             "signed_by"
             ]
-        read_only_fields = ["date_created", "date_updated", "signed", "signed_by"]
+        read_only_fields = ["payment_due_date", "date_created", "date_updated", "signed", "signed_by"]
         extra_kwargs = {"client": {"write_only": True}}
 
 
