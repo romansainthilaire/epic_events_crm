@@ -34,7 +34,7 @@
             {% for contract in contracts %}
             <tr class="align-middle">
                 <td><a href="#" data-bs-toggle="modal" data-bs-target="#{{ contract }}">{{ contract }}</a></td>
-                <td>{{ contract.title|title }}</td>
+                <td>{{ contract.title }}</td>
                 <td class="nobr">{{ contract.amount|intcomma }} €</td>
                 <td>{{ contract.payment_due_date|date:"d/m/Y" }}</td>
                 {% if user|has_group:"vente" %}
