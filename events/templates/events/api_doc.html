@@ -8,7 +8,16 @@
 
 <p class="text-center"><a href="">Documentation Postman</a></p>
 
-<h2 class="h3 text-black mt-5 mb-3">Authentification</h2>
+<h2 class="h3 text-black mt-5 mb-3">Appel de l'API</h2>
+
+<p class="mb-1">
+    Pour constituer les URI d'appel à l'API vous devez faire précéder les <b class="text-light">Path</b>
+    indiqués ci-dessous par : <b class="text-light">http://romansainthilaire.pythonanywhere.com</b>
+</p>
+
+<p>→ Exemple : http://romansainthilaire.pythonanywhere.com/api/token/</p>
+
+<h2 class="h3 text-black mt-4 mb-3">Authentification</h2>
 
 <p class="mb-1">L'authentification se fait via le standard JWT (JSON Web Token).</p>
 
@@ -18,7 +27,7 @@
             <tr>
                 <th>Action</th>
                 <th>Méthode HTTP</th>
-                <th>Point de terminaison</th>
+                <th>Path</th>
                 <th>Headers</th>
                 <th>Body</th>
                 <th>Accès</th>
@@ -28,7 +37,7 @@
             <tr>
                 <td>Récupérer une paire de tokens<br>(token d'accès + token de rafraichissement)</td>
                 <td>POST</td>
-                <td>→ token/</td>
+                <td>/api/token/</td>
                 <td></td>
                 <td>
                     email <span class="text-secondary">: adresse e-mail</span><br>
@@ -45,7 +54,7 @@
             <tr>
                 <td>Récupérer un token d'accès</td>
                 <td>POST</td>
-                <td>→ token/refresh/</td>
+                <td>/api/token/refresh/</td>
                 <td></td>
                 <td>
                     refresh <span class="text-secondary">: token de rafraichissement</span>
@@ -70,7 +79,7 @@
             <tr>
                 <th>Action</th>
                 <th>Méthode HTTP</th>
-                <th>Point de terminaison</th>
+                <th>Path</th>
                 <th>Headers</th>
                 <th>Body</th>
                 <th>Accès</th>
@@ -80,7 +89,7 @@
             <tr>
                 <td>Afficher les clients</td>
                 <td>GET</td>
-                <td>→ clients/</td>
+                <td>/api/clients/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -94,7 +103,7 @@
             <tr>
                 <td>Ajouter un client</td>
                 <td>POST</td>
-                <td>→ clients/</td>
+                <td>/api/clients/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td>
                     company_name <span class="text-secondary">: nom de l'entreprise</span><br>
@@ -113,7 +122,7 @@
             <tr>
                 <td>Afficher un client</td>
                 <td>GET</td>
-                <td>→ clients/&lt;client_id&gt;/</td>
+                <td>/api/clients/&lt;client_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -127,7 +136,7 @@
             <tr>
                 <td>Modifier un client</td>
                 <td>PUT</td>
-                <td>→ clients/&lt;client_id&gt;/</td>
+                <td>/api/clients/&lt;client_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td>
                     company_name <span class="text-secondary">: nom de l'entreprise</span><br>
@@ -155,7 +164,7 @@
             <tr>
                 <th>Action</th>
                 <th>Méthode HTTP</th>
-                <th>Point de terminaison</th>
+                <th>Path</th>
                 <th>Headers</th>
                 <th>Body</th>
                 <th>Accès</th>
@@ -165,7 +174,7 @@
             <tr>
                 <td>Afficher les contrats</td>
                 <td>GET</td>
-                <td>→ contracts/</td>
+                <td>/api/contracts/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -179,7 +188,7 @@
             <tr>
                 <td>Ajouter un contrat</td>
                 <td>POST</td>
-                <td>→ contracts/</td>
+                <td>/api/contracts/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td>
                     client <span class="text-secondary">: client</span><br>
@@ -197,7 +206,7 @@
             <tr>
                 <td>Afficher un contrat</td>
                 <td>GET</td>
-                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td>/api/contracts/&lt;contract_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -211,7 +220,7 @@
             <tr>
                 <td>Modifier un contrat</td>
                 <td>PUT</td>
-                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td>/api/contracts/&lt;contract_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td>
                     client <span class="text-secondary">: client</span><br>
@@ -229,7 +238,7 @@
             <tr>
                 <td>Supprimer un contrat</td>
                 <td>DELETE</td>
-                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td>/api/contracts/&lt;contract_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -241,7 +250,7 @@
             <tr>
                 <td>Signer un contrat</td>
                 <td>POST</td>
-                <td>→ contracts/&lt;contract_id&gt;/sign/</td>
+                <td>/api/contracts/&lt;contract_id&gt;/sign/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -262,7 +271,7 @@
             <tr>
                 <th>Action</th>
                 <th>Méthode HTTP</th>
-                <th>Point de terminaison</th>
+                <th>Path</th>
                 <th>Headers</th>
                 <th>Body</th>
                 <th>Accès</th>
@@ -272,7 +281,7 @@
             <tr>
                 <td>Afficher les évènements</td>
                 <td>GET</td>
-                <td>→ events/</td>
+                <td>/api/events/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -286,7 +295,7 @@
             <tr>
                 <td>Afficher un évènement</td>
                 <td>GET</td>
-                <td>→ events/&lt;event_id&gt;/</td>
+                <td>/api/events/&lt;event_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td></td>
                 <td>
@@ -300,7 +309,7 @@
             <tr>
                 <td>Modifier un évènement</td>
                 <td>PUT</td>
-                <td>→ events/&lt;event_id&gt;/</td>
+                <td>/api/events/&lt;event_id&gt;/</td>
                 <td>Authorization : Bearer &lt;access_token&gt;</td>
                 <td>
                     event_date <span class="text-secondary">: date de l'évènement</span><br>
