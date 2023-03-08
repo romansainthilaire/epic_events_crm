@@ -13,8 +13,7 @@ class ClientForm(forms.ModelForm):
         self.fields["first_name"].widget.attrs["placeholder"] = ""
         self.fields["last_name"].widget.attrs["placeholder"] = ""
         self.fields["email"].widget.attrs["placeholder"] = ""
-        self.fields["phone"].widget.attrs["placeholder"] = ""
-        self.fields["mobile"].widget.attrs["placeholder"] = ""
+        self.fields["phone_number"].widget.attrs["placeholder"] = ""
         self.fields["company_name"].widget.attrs["placeholder"] = ""
 
     class Meta:
@@ -24,8 +23,7 @@ class ClientForm(forms.ModelForm):
             "first_name": "Prénom",
             "last_name": "Nom",
             "email": "Adresse e-mail",
-            "phone": "Téléphone fixe",
-            "mobile": "Téléphone mobile",
+            "phone_number": "Numéro de téléphone",
             "company_name": "Entreprise",
             }
 

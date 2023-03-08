@@ -15,8 +15,7 @@ class ClientSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
-            "phone",
-            "mobile",
+            "phone_number",
             "date_created",
             "date_updated",
             "sales_contact_id"
