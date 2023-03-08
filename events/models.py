@@ -16,6 +16,9 @@ class Client(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        ordering = ["-date_updated"]
+
     def __str__(self):
         return f"{self.first_name.capitalize()} {self.last_name.upper()} - {self.company_name.upper()}"
 
@@ -31,6 +34,9 @@ class Contract(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     signed = models.BooleanField(default=False)
     signed_by = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        ordering = ["-date_updated"]
 
     def __str__(self):
         return "EPE" + self.date_created.strftime("%y%m") + str(self.pk)
@@ -48,6 +54,9 @@ class Event(models.Model):
     customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-date_updated"]
 
     def __str__(self):
         return f"{self.contract.title}"
