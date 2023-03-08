@@ -53,7 +53,7 @@ class EventForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
-        self.fields["event_date"].widget.attrs["placeholder"] = "jj/mm/aaaa"
+        self.fields["date"].widget.attrs["placeholder"] = "jj/mm/aaaa"
         self.fields["attendees"].widget.attrs["placeholder"] = ""
         self.fields["event_retrospective"].widget.attrs["placeholder"] = (
             "Lister ici :" + "\n"
@@ -67,19 +67,19 @@ class EventForm(forms.ModelForm):
         model = Event
         exclude = ["contract", "support_contact"]
         labels = {
-            "event_date": "Date de l'évènement",
+            "date": "Date de l'évènement",
             "attendees": "Nombre de participants",
             "event_retrospective": "Retour d'expérience",
             "customer_satisfaction": "Satisfaction client (note sur 5)",
             }
 
-    def clean_event_date(self, *args, **kwargs):
-        event_date = self.cleaned_data["event_date"]
-        if event_date > datetime.date.today():
+    def clean_date(self, *args, **kwargs):
+        date = self.cleaned_data["date"]
+        if date > datetime.date.today():
             raise ValidationError(
                 "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
                 )
-        return event_date
+        return date
 
 
 # --------------------  ↓  Forms used for admin site  ↓  --------------------

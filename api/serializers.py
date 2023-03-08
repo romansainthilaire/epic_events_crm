@@ -57,7 +57,7 @@ class EventSerializer(serializers.ModelSerializer):
             "title",
             "contract_id",
             "support_contact_id",
-            "event_date",
+            "date",
             "attendees",
             "event_retrospective",
             "customer_satisfaction",

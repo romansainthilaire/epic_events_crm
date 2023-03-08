@@ -10,7 +10,7 @@
             <div class="modal-body text-secondary">
                 <ul>
                     <li>Réf. contrat : <span class="text-dark">{{ event.contract }}</span></li>
-                    <li>Date de l'évènement : <span class="text-dark">{{ event.event_date|date:"d/m/Y" }}</span></li>
+                    <li>Date de l'évènement : <span class="text-dark">{{ event.date|date:"d/m/Y" }}</span></li>
                     <li>Nombre de participants : <span class="text-dark">{{ event.attendees }}</span></li>
                     <li>Satisfaction client : <span class="text-dark">{{ event.customer_satisfaction }}/5</span></li>
                 </ul>
