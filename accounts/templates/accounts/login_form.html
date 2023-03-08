@@ -7,16 +7,13 @@
 
 <div class="row justify-content-center">
     <div class="col-sm-8 col-md-6 col-lg-5 col-xl-4">
-
         <h1 class="text-center text-white mb-4">Connectez-vous</h1>
-
         {% if error_message %}
         <div class="alert alert-dark alert-dismissible show fade my-4">
             {{ error_message }}
             <button class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         {% endif %}
-
         <form method="POST">
             {% csrf_token %}
             {% bootstrap_form form bound_css_class="" %}
@@ -24,7 +21,40 @@
                 <button class="btn btn-secondary mt-4" type="submit">Connexion</button>
             </div>
         </form>
-        
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-sm-10 col-md-8 col-lg-7 col-xl-6">
+        <h2 class="h4 text-center text-black">Utilisateurs test</h2>
+        <div class="table-responsive mt-3">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Équipe</th>
+                        <th>Adresse e-mail</th>
+                        <th>Mot de passe</th>
+                    </tr>
+                </thead>
+                <tbody class="light-grey">
+                    <tr>
+                        <td>gestion</td>
+                        <td>paul.dubois@gmail.com</td>
+                        <td>paul123test</td>
+                    </tr>
+                    <tr>
+                        <td>vente</td>
+                        <td>marie.thomas@gmail.com</td>
+                        <td>marie123test</td>
+                    </tr>
+                    <tr>
+                        <td>support</td>
+                        <td>nicolas.moreau@gmail.com</td>
+                        <td>nicolas123test</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

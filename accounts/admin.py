@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite, ModelAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib import messages
 
 from accounts.models import User
 from events.models import Client, Contract, Event
@@ -88,6 +89,13 @@ class GestionUserAdmin(UserAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def save_model(self, request, obj, form, change):
+        if obj.email in ["paul.dubois@gmail.com", "marie.thomas@gmail.com", "nicolas.moreau@gmail.com"]:
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, "Les utilisateurs test ne peuvent pas être modifiés.")
+        else:
+            super().save_model(request, obj, form, change)
 
 
 class GestionClientAdmin(ModelAdmin):
