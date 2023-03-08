@@ -24,8 +24,7 @@ class ClientViewSet(mixins.CreateModelMixin,
     required_groups = {
         "GET": ["gestion", "vente", "support"],
         "POST": ["vente"],
-        "PUT": ["vente"],
-        "PATCH": ["vente"]
+        "PUT": ["vente"]
     }
     filter_backends = [filters.SearchFilter]
     search_fields = ["first_name", "last_name", "email"]
@@ -53,7 +52,6 @@ class ContractViewSet(viewsets.ModelViewSet):
         "GET": ["gestion", "vente", "support"],
         "POST": ["vente"],
         "PUT": ["vente"],
-        "PATCH": ["vente"],
         "DELETE": ["vente"]
     }
     filter_backends = [filters.SearchFilter]
@@ -120,8 +118,7 @@ class EventViewSet(mixins.ListModelMixin,
     permission_classes = [HasGroupPermission]
     required_groups = {
         "GET": ["gestion", "vente", "support"],
-        "PUT": ["support"],
-        "PATCH": ["support"]
+        "PUT": ["support"]
     }
     filter_backends = [filters.SearchFilter]
     search_fields = ["contract__client__first_name", "contract__client__last_name", "contract__client__email"]

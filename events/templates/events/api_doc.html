@@ -4,15 +4,257 @@
 
 {% block content %}
 
-<p class="mb-1">
+<h1 class="text-center text-white mb-4">Epic Events API</h1>
+
+<p class="text-center mb-1">
     {% if user.is_authenticated %}
-    <a class="btn btn-dark" href="/api/">Accéder à l'API</a>
+    <a class="btn btn-lg btn-dark" href="/api/">Accéder à l'API</a>
     {% else %}
-    <a class="btn btn-dark" href="#" data-bs-toggle="modal" data-bs-target="#login-required-modal">Accéder à l'API</a>
+    <a class="btn btn-lg btn-dark" href="#" data-bs-toggle="modal" data-bs-target="#login-required-modal">Accéder à l'API</a>
     {% endif %}
 </p>
 
-<h1 class="h3 text-black mt-4 mb-3">Points de terminaisons</h1>
+<p class="text-center mt-3"><a href="">Documentation Postman</a></p>
+
+<h2 class="h3 text-black mt-4 mb-3">Clients</h2>
+
+<div class="table-responsive mt-4">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Méthode HTTP</th>
+                <th>Point de terminaison</th>
+                <th>Body</th>
+                <th>Accès</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Afficher les clients</td>
+                <td>GET</td>
+                <td>→ clients/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Ajouter un client</td>
+                <td>POST</td>
+                <td>→ clients/</td>
+                <td>
+                    company_name <span class="text-secondary">: nom de l'entreprise</span><br>
+                    first_name <span class="text-secondary">: prénom</span><br>
+                    last_name <span class="text-secondary">: nom</span><br>
+                    email <span class="text-secondary">: adresse e-mail</span><br>
+                    phone <span class="text-secondary">: téléphone fixe</span><br>
+                    mobile <span class="text-secondary">: téléphone mobile</span><br>
+                </td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Afficher un client</td>
+                <td>GET</td>
+                <td>→ clients/&lt;client_id&gt;/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Modifier un client</td>
+                <td>PUT</td>
+                <td>→ clients/&lt;client_id&gt;/</td>
+                <td>
+                    company_name <span class="text-secondary">: nom de l'entreprise</span><br>
+                    first_name <span class="text-secondary">: prénom</span><br>
+                    last_name <span class="text-secondary">: nom</span><br>
+                    email <span class="text-secondary">: adresse e-mail</span><br>
+                    phone <span class="text-secondary">: téléphone fixe</span><br>
+                    mobile <span class="text-secondary">: téléphone mobile</span><br>
+                </td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 class="h3 text-black mt-4 mb-3">Contrats</h2>
+
+<div class="table-responsive mt-4">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Méthode HTTP</th>
+                <th>Point de terminaison</th>
+                <th>Body</th>
+                <th>Accès</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Afficher les contrats</td>
+                <td>GET</td>
+                <td>→ contracts/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Ajouter un contrat</td>
+                <td>POST</td>
+                <td>→ contracts/</td>
+                <td>
+                    client <span class="text-secondary">: client</span><br>
+                    title <span class="text-secondary">: titre</span><br>
+                    content <span class="text-secondary">: contenu</span><br>
+                    amount <span class="text-secondary">: montant</span><br>
+                    payment_due_date <span class="text-secondary">: date limite de paiement</span><br>
+                </td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Afficher un contrat</td>
+                <td>GET</td>
+                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Modifier un contrat</td>
+                <td>PUT</td>
+                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td>
+                    client <span class="text-secondary">: client</span><br>
+                    title <span class="text-secondary">: titre</span><br>
+                    content <span class="text-secondary">: contenu</span><br>
+                    amount <span class="text-secondary">: montant</span><br>
+                    payment_due_date <span class="text-secondary">: date limite de paiement</span><br>
+                </td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Supprimer un contrat</td>
+                <td>DELETE</td>
+                <td>→ contracts/&lt;contract_id&gt;/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Signer un contrat</td>
+                <td>POST</td>
+                <td>→ contracts/&lt;contract_id&gt;/sign/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>vente</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 class="h3 text-black mt-4 mb-3">Évènements</h2>
+
+<div class="table-responsive mt-4">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Méthode HTTP</th>
+                <th>Point de terminaison</th>
+                <th>Body</th>
+                <th>Accès</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Afficher les évènements</td>
+                <td>GET</td>
+                <td>→ events/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Afficher un évènement</td>
+                <td>GET</td>
+                <td>→ events/&lt;event_id&gt;/</td>
+                <td></td>
+                <td>
+                    <ul>
+                        <li>gestion</li>
+                        <li>vente</li>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Modifier un évènement</td>
+                <td>PUT</td>
+                <td>→ events/&lt;event_id&gt;/</td>
+                <td>
+                    event_date <span class="text-secondary">: date de l'évènement</span><br>
+                    attendees <span class="text-secondary">: nombre de participants</span><br>
+                    event_retrospective <span class="text-secondary">: compte rendu</span><br>
+                    customer_satisfaction <span class="text-secondary">: satisfaction client (note sur 5)</span><br>
+                </td>
+                <td>
+                    <ul>
+                        <li>support</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 {% include "events/fragments/login_required_modal.html" %}
 
