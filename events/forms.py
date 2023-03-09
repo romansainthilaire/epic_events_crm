@@ -10,21 +10,21 @@ class ClientForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ClientForm, self).__init__(*args, **kwargs)
+        self.fields["company_name"].widget.attrs["placeholder"] = ""
         self.fields["first_name"].widget.attrs["placeholder"] = ""
         self.fields["last_name"].widget.attrs["placeholder"] = ""
         self.fields["email"].widget.attrs["placeholder"] = ""
         self.fields["phone_number"].widget.attrs["placeholder"] = ""
-        self.fields["company_name"].widget.attrs["placeholder"] = ""
 
     class Meta:
         model = Client
         exclude = ["sales_contact"]
         labels = {
+            "company_name": "Entreprise",
             "first_name": "Prénom",
             "last_name": "Nom",
             "email": "Adresse e-mail",
-            "phone_number": "Numéro de téléphone",
-            "company_name": "Entreprise",
+            "phone_number": "Numéro de téléphone"
             }
 
 
@@ -65,16 +65,23 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        exclude = ["contract", "support_contact"]
+        exclude = ["support_contact"]
         labels = {
             "date": "Date de l'évènement",
             "attendees": "Nombre de participants",
             "event_retrospective": "Retour d'expérience",
             "customer_satisfaction": "Satisfaction client (note sur 5)",
             }
+        widgets = {"contract": forms.HiddenInput()}
 
     def clean_date(self, *args, **kwargs):
         date = self.cleaned_data["date"]
+        contract = self.cleaned_data["contract"]
+        if date < contract.date_updated.date():
+            raise ValidationError(
+                "L'évènement ne peut pas avoir eu lieu avant la date de signature du contrat (" +
+                contract.date_updated.date().strftime("%d/%m/%y") + ")."
+                )
         if date > datetime.date.today():
             raise ValidationError(
                 "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
