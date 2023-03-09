@@ -27,7 +27,7 @@ urlpatterns = [
     path("", include("events.urls")),
     path("api/", include("api.urls")),
 
-    # Admin site
+    # Admin site - full access
     path("epe-admin/logout/", views.log_out),
     path("epe-admin/", admin.site.urls),
 
