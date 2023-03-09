@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.admin import AdminSite, ModelAdmin
 from django.contrib import messages
 
@@ -67,7 +69,9 @@ class VenteContractAdmin(ModelAdmin):
             messages.set_level(request, messages.ERROR)
             messages.error(request, "Un contrat signé ne peut pas être modifié.")
         else:
-            super().save_model(request, obj, form, change)
+            payment_due_date = datetime.datetime.now().date() + datetime.timedelta(60)
+            obj.payment_due_date = payment_due_date
+            obj.save()
 
     def delete_model(self, request, obj):
         if obj.signed:

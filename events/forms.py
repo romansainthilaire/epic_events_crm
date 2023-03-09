@@ -100,7 +100,7 @@ class ContractAdminForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        exclude = ["signed", "signed_by"]
+        exclude = ["payment_due_date", "signed", "signed_by"]
 
 
 class EventAdminForm(forms.ModelForm):
