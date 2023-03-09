@@ -2,13 +2,10 @@ import datetime
 
 from django.shortcuts import get_object_or_404
 
-from rest_framework import mixins
-from rest_framework import viewsets
-from rest_framework import filters
+from rest_framework import mixins, viewsets, filters, status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 
 from events.models import Client, Contract, Event
 from api.serializers import ClientSerializer, ContractSerializer, EventSerializer
@@ -134,4 +131,4 @@ class EventViewSet(mixins.ListModelMixin,
             contracts = Contract.objects.filter(client__sales_contact=self.request.user).filter(signed=True)
             return Event.objects.filter(contract__in=contracts)
         elif group == "support":
-            return Event.objects.filter(support_contact=self.request.user).filter(contract__signed=True)
+            return Event.objects.filter(support_contact=self.request.user)
