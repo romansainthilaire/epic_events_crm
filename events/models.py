@@ -17,7 +17,7 @@ class Client(models.Model):
     sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     class Meta:
-        ordering = ["-date_updated"]
+        ordering = ["first_name", "last_name"]
 
     def __str__(self):
         return f"{self.first_name.capitalize()} {self.last_name.upper()} - {self.company_name.upper()}"
