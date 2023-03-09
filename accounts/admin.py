@@ -141,7 +141,7 @@ class GestionEventAdmin(ModelAdmin):
         return False
 
 
-gestion_admin_site = GestionAdminSite(name="gestion-admin")
+gestion_admin_site = GestionAdminSite(name="admin-gestion")
 gestion_admin_site.register(User, GestionUserAdmin)
 gestion_admin_site.register(Client, GestionClientAdmin)
 gestion_admin_site.register(Contract, GestionContractAdmin)

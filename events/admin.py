@@ -96,7 +96,7 @@ class VenteEventAdmin(ModelAdmin):
         return False
 
 
-vente_admin_site = VenteAdminSite(name="vente-admin")
+vente_admin_site = VenteAdminSite(name="admin-vente")
 vente_admin_site.register(Client, VenteClientAdmin)
 vente_admin_site.register(Contract, VenteContractAdmin)
 vente_admin_site.register(Event, VenteEventAdmin)
@@ -190,7 +190,7 @@ class SupportEventAdmin(ModelAdmin):
         return False
 
 
-support_admin_site = SupportAdminSite(name="support-admin")
+support_admin_site = SupportAdminSite(name="admin-support")
 support_admin_site.register(Client, SupportClientAdmin)
 support_admin_site.register(Contract, SupportContractAdmin)
 support_admin_site.register(Event, SupportEventAdmin)

@@ -27,20 +27,20 @@ urlpatterns = [
     path("", include("events.urls")),
     path("api/", include("api.urls")),
 
-    # Admin site for admin users
-    path("admin/logout/", views.log_out),
-    path("admin/", admin.site.urls),
+    # Admin site
+    path("epe-admin/logout/", views.log_out),
+    path("epe-admin/", admin.site.urls),
 
-    # Admin site for staff users with "gestion" group
-    path("gestion-admin/logout/", views.log_out),
-    path("gestion-admin/", gestion_admin_site.urls),
+    # Admin site - gestion
+    path("admin-gestion/logout/", views.log_out),
+    path("admin-gestion/", gestion_admin_site.urls),
 
-    # Admin site for staff users with "vente" group
-    path("vente-admin/logout/", views.log_out),
-    path("vente-admin/", vente_admin_site.urls),
+    # Admin site - vente
+    path("admin-vente/logout/", views.log_out),
+    path("admin-vente/", vente_admin_site.urls),
 
-    # Admin site for staff users with "support" group
-    path("support-admin/logout/", views.log_out),
-    path("support-admin/", support_admin_site.urls),
+    # Admin site - support
+    path("admin-support/logout/", views.log_out),
+    path("admin-support/", support_admin_site.urls),
 
 ]
