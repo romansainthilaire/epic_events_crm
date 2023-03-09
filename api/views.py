@@ -83,7 +83,8 @@ class ContractViewSet(viewsets.ModelViewSet):
             contract = Contract.objects.get(pk=self.kwargs["pk"])
             if contract.signed:
                 raise PermissionDenied("Vous ne pouvez pas modifier un contrat signé.")
-            serializer.save()
+            payment_due_date = datetime.datetime.now().date() + datetime.timedelta(60)
+            serializer.save(payment_due_date=payment_due_date)
 
     def perform_destroy(self, instance):
         if instance.signed:

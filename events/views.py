@@ -84,7 +84,7 @@ def contract_create(request, client_id):
         if contract_form .is_valid():
             contract = contract_form.save(commit=False)
             contract.client = client
-            contract.payment_due_date = datetime.datetime.now() + datetime.timedelta(60)
+            contract.payment_due_date = datetime.datetime.now().date() + datetime.timedelta(60)
             contract.save()
             return redirect("contract_list", client.pk)
     context = {"client": client, "contract_form": contract_form}
@@ -101,7 +101,7 @@ def contract_update(request, contract_id):
     if request.method == "POST":
         contract_form = ContractForm(request.POST, instance=contract)
         if contract_form.is_valid():
-            contract.payment_due_date = datetime.datetime.now() + datetime.timedelta(60)
+            contract.payment_due_date = datetime.datetime.now().date() + datetime.timedelta(60)
             contract.save()
             return redirect("contract_list", contract.client.pk)
     context = {"client": contract.client, "contract_form": contract_form, "contract": contract}
