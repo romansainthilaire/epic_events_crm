@@ -80,7 +80,7 @@
                         <span class="text-info-emphasis">{{ user.groups.all.0|title }}</span>
                     </p>
                     <a class="btn btn-secondary me-3 mt-1 mb-3 mb-lg-2" href="{% url 'logout' %}">Déconnexion</a>
-                    {% else %}
+                    {% elif request.path != "/connexion/" %}
                     <a class="btn btn-secondary me-3 mt-1 mb-3 mb-lg-2" href="{% url 'login' %}">Connexion</a>
                     {% endif %}
                 </div>
