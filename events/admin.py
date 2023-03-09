@@ -7,7 +7,7 @@ from events.models import Client, Contract, Event
 from events.forms import ClientAdminForm, ContractAdminForm, EventAdminForm
 
 
-# --------------------  ↓  Admin site for staff users with "vente" group  ↓  --------------------
+# --------------------  ↓  Admin site - vente  ↓  --------------------
 
 
 class VenteAdminSite(AdminSite):
@@ -102,7 +102,7 @@ vente_admin_site.register(Contract, VenteContractAdmin)
 vente_admin_site.register(Event, VenteEventAdmin)
 
 
-# --------------------  ↓  Admin site for staff users with "support" group  ↓  --------------------
+# --------------------  ↓  Admin site - support  ↓  --------------------
 
 
 class SupportAdminSite(AdminSite):

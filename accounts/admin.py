@@ -11,7 +11,7 @@ from accounts.forms import ClientAdminForm, EventAdminForm
 # https://docs.djangoproject.com/en/4.1/topics/auth/customizing/
 
 
-# --------------------  ↓  Admin site for admin users  ↓  --------------------
+# --------------------  ↓  Admin site - full access  ↓  --------------------
 
 
 admin.site.site_header = "Epic Event Administration"
@@ -71,7 +71,7 @@ admin.site.register(Contract, ContractAdmin)
 admin.site.register(Event, EventAdmin)
 
 
-# --------------------  ↓  Admin site for staff users with "gestion" group  ↓  --------------------
+# --------------------  ↓  Admin site - gestion  ↓  --------------------
 
 
 class GestionAdminSite(AdminSite):
