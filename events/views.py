@@ -104,7 +104,7 @@ def contract_update(request, contract_id):
             contract.payment_due_date = datetime.datetime.now().date() + datetime.timedelta(60)
             contract.save()
             return redirect("contract_list", contract.client.pk)
-    context = {"contract_form": contract_form, "contract": contract}
+    context = {"contract_form": contract_form, "contract": contract, "client": contract.client}
     return render(request, "events/contract/contract_form.html", context)
 
 
