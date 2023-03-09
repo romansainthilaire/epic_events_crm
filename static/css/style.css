@@ -91,3 +91,7 @@ label {
 .invalid-feedback {
     color: rgb(255, 150, 150)
 }
+
+#page-error-face {
+    font-size: 130px;
+}
