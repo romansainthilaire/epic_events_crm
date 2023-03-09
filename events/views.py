@@ -140,7 +140,7 @@ def event_list(request):
         contracts = Contract.objects.filter(client__sales_contact=request.user).filter(signed=True)
         events = Event.objects.filter(contract__in=contracts)
     elif request.user.groups.filter(name="support").exists():
-        events = Event.objects.filter(support_contact=request.user).filter(contract__signed=True)
+        events = Event.objects.filter(support_contact=request.user)
     context = {"events": events}
     return render(request, "events/event/event_list.html", context)
 
