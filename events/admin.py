@@ -166,6 +166,23 @@ class SupportEventAdmin(ModelAdmin):
         queryset = super().get_queryset(request)
         return queryset.filter(support_contact=request.user)
 
+    def save_model(self, request, obj, form, change):
+        date = obj.date
+        contract = Contract.objects.filter(event=obj).first()
+        if date < contract.date_updated.date():
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, (
+                "L'évènement ne peut pas avoir eu lieu avant la date de signature du contrat (" +
+                contract.date_updated.date().strftime("%d/%m/%y") + ")."
+            ))
+        elif date > datetime.date.today():
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, (
+                "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
+            ))
+        else:
+            obj.save()
+
     def has_add_permission(self, request):
         return False
 
