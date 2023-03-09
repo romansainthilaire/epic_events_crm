@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import get_object_or_404
 
 from rest_framework import mixins, viewsets, filters, status
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -132,3 +132,19 @@ class EventViewSet(mixins.ListModelMixin,
             return Event.objects.filter(contract__in=contracts)
         elif group == "support":
             return Event.objects.filter(support_contact=self.request.user)
+
+    def perform_update(self, serializer):
+        if serializer.is_valid:
+            date = serializer.validated_data["date"]
+            event = Event.objects.get(pk=self.kwargs["pk"])
+            contract = Contract.objects.get(event=event)
+            if date < contract.date_updated.date():
+                raise ValidationError(
+                    "L'évènement ne peut pas avoir eu lieu avant la date de signature du contrat (" +
+                    contract.date_updated.date().strftime("%d/%m/%y") + ")."
+                    )
+            if date > datetime.date.today():
+                raise ValidationError(
+                    "Vous ne pouvez pas rédiger un compte rendu pour un évènement qui n'a pas encore eu lieu."
+                    )
+            serializer.save()
