@@ -61,8 +61,11 @@ class ContractAdmin(ModelAdmin):
 
 class EventAdmin(ModelAdmin):
 
-    list_display = ["contract", "support_contact", "date", "attendees", "customer_satisfaction"]
+    list_display = ["contract", "title", "support_contact", "date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
+
+    def title(self, obj):
+        return obj.contract.title
 
 
 admin.site.register(User, UserAdmin)
@@ -131,8 +134,11 @@ class GestionContractAdmin(ModelAdmin):
 class GestionEventAdmin(ModelAdmin):
 
     form = EventAdminForm
-    list_display = ["contract", "support_contact", "date", "attendees", "customer_satisfaction"]
+    list_display = ["contract", "title", "support_contact", "date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
+
+    def title(self, obj):
+        return obj.contract.title
 
     def has_add_permission(self, request):
         return False

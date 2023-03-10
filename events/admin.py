@@ -83,8 +83,11 @@ class VenteContractAdmin(ModelAdmin):
 
 class VenteEventAdmin(ModelAdmin):
 
-    list_display = ["contract", "support_contact", "date", "attendees", "customer_satisfaction"]
+    list_display = ["contract", "title", "support_contact", "date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
+
+    def title(self, obj):
+        return obj.contract.title
 
     def has_add_permission(self, request):
         return False
@@ -159,8 +162,11 @@ class SupportContractAdmin(ModelAdmin):
 class SupportEventAdmin(ModelAdmin):
 
     form = EventAdminForm
-    list_display = ["contract", "support_contact", "date", "attendees", "customer_satisfaction"]
+    list_display = ["contract", "title", "support_contact", "date", "attendees", "customer_satisfaction"]
     search_fields = ["contract"]
+
+    def title(self, obj):
+        return obj.contract.title
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
