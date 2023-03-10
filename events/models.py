@@ -36,7 +36,7 @@ class Contract(models.Model):
     signed_by = models.CharField(max_length=100, blank=True)
 
     class Meta:
-        ordering = ["-date_updated"]
+        ordering = ["-date_created"]
 
     def __str__(self):
         return "EPE" + self.date_created.strftime("%y%m") + str(self.pk)
@@ -56,7 +56,7 @@ class Event(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-date_updated"]
+        ordering = ["-date_created"]
 
     def __str__(self):
         return f"{self.contract.title}"
