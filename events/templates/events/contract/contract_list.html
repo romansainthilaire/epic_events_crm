@@ -8,9 +8,7 @@
 
 <h1 class="text-white mb-4">
     Contrats
-    {% if user|has_group:"vente" %}
     <a class="btn btn-sm btn-secondary ms-4 mb-1" href="{% url 'contract_create' client.pk %}">Nouveau</a>
-    {% endif %}
 </h1>
 
 <h2 class="h4">{{ client }}</h2>
@@ -24,10 +22,8 @@
                 <th>Titre</th>
                 <th>Montant</th>
                 <th>Date limite de paiement</th>
-                {% if user|has_group:"vente" %}
                 <th></th>
                 <th></th>
-                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -37,7 +33,6 @@
                 <td>{{ contract.title }}</td>
                 <td class="nobr">{{ contract.amount|intcomma }} €</td>
                 <td>{{ contract.payment_due_date|date:"d/m/Y" }}</td>
-                {% if user|has_group:"vente" %}
                 {% if contract.signed %}
                 <td>Signé le {{ contract.date_updated|date:"d/m/Y" }} à {{ contract.date_updated|date:"H:i" }}</td>
                 <td></td>
@@ -48,7 +43,6 @@
                         Supprimer
                     </a>
                 </td>
-                {% endif %}
                 {% endif %}
             </tr>
             {% endfor %}
