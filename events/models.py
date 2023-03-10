@@ -7,10 +7,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Client(models.Model):
 
-    company_name = models.CharField(max_length=100, unique=True)
+    company_name = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=50, unique=True)
     phone_number = PhoneNumberField(unique=True, region="FR")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -26,7 +26,7 @@ class Client(models.Model):
 class Contract(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="contracts")
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=50)
     content = models.TextField(validators=[MinLengthValidator(500)])
     amount = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(1000)])
     payment_due_date = models.DateField()
