@@ -13,8 +13,8 @@ Nouveau client
 {% block content %}
 
 <div class="row justify-content-center">
-
     <div class="col-sm-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+
         <h1 class="text-center text-white mb-4">
             {% if client %}
             {{ client.first_name|title }} {{ client.last_name|upper }}
@@ -22,18 +22,19 @@ Nouveau client
             Nouveau client
             {% endif %}
         </h1>
+
         <form method="POST">
             {% csrf_token %}
             {% bootstrap_form client_form bound_css_class="" %}
             <div class="text-center">
-                <a class="btn btn-secondary mt-4 me-3" href="{% url 'client_list' %}">Annuler</a>
-                <button class="btn btn-secondary mt-4" type="submit">
+                <a class="btn btn-secondary mt-3 me-3" href="{% url 'client_list' %}">Annuler</a>
+                <button class="btn btn-secondary mt-3" type="submit">
                     {% if client %}Enregistrer{% else %}Créer{% endif %}
                 </button>
             </div>
         </form>
-    </div>
 
+    </div>
 </div>
 
 {% endblock content %}
