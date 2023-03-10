@@ -26,7 +26,7 @@ environ.Env.read_env(env_file=str(BASE_DIR / "epic_events_crm" / ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG")
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]  # env.list("ALLOWED_HOSTS") : API is not working using .env
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
