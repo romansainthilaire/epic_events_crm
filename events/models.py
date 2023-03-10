@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.core.validators import MinValueValidator, MinLengthValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -49,7 +49,7 @@ class Event(models.Model):
     contract = models.OneToOneField(Contract, on_delete=models.CASCADE, related_name="event")
     support_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     date = models.DateField(null=True)
-    attendees = models.SmallIntegerField(null=True, validators=[MinValueValidator(1)])
+    attendees = models.SmallIntegerField(null=True, validators=[MinValueValidator(1), MaxValueValidator(10000)])
     event_retrospective = models.TextField()
     customer_satisfaction = models.SmallIntegerField(choices=CUSTOMER_SATISFACTION_CHOICES, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
